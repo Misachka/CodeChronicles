@@ -1,5 +1,6 @@
 {
   "name": "codechronicles",
+<<<<<<< HEAD
   "private": true,
   "version": "0.0.0",
   "description": "",
@@ -21,18 +22,23 @@
     "mongodb": "^6.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
+=======
+  "version": "1.0.0",
+  "description": "",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm run dev\"",
+    "install": "cd server && npm i && cd ../client && npm i --production=false",
+    "seed": "cd server && npm run seed",
+    "build": "cd client && npm run build",
+    "render-build": "npm install && npm run build"
+>>>>>>> 65846e41e6739444078aad3f6f89ae3e846b0d9d
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "devDependencies": {
-    "@types/react": "^18.2.37",
-    "@types/react-dom": "^18.2.15",
-    "@vitejs/plugin-react": "^4.2.0",
-    "autoprefixer": "^10.4.16",
-    "eslint": "^8.53.0",
-    "eslint-plugin-react": "^7.33.2",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.4",
-    "postcss": "^8.4.31",
-    "tailwindcss": "^3.3.5",
-    "vite": "^5.0.0"
+    "concurrently": "^5.1.0"
   }
 }
