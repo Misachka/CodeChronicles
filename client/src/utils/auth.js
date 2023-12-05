@@ -1,43 +1,41 @@
-const { GraphQLError } = require ('graphql');
-const jwt = require('jsonwebtoken');
+import decode from 'jwt-decode';
 
-const secret = 'mysecretssshhhhhhh';
-const expiration = '2h';
+class AuthService {
+  getProfile() {
+    return decode(this.getToken());
+  }
 
-const { GraphQLError } = require('graphql');
-const jwt = require('jsonwebtoken');
+  loggedIn() {
+    const token = this.getToken();
+    return !!token && !this.isTokenExpired(token);
+  }
 
-const secret = 'mysecretssshhhhhhh';
-const expiration = '2h';
-
-module.exports = {
-  AuthenticationError: new GraphQLError('User not verify.', {
-    extensions: {
-      code: 'UNAUTHENTICATED',
-    },
-  }),
-  authMiddleware: function ({ req }) {
-    let token = req.body.token || req.query.token || req.headers.authorization;
-
-    if (req.headers.authorization) {
-      token = token.split(' ').pop().trim();
-    }
-
-    if (!token) {
-      return req;
-    }
-
+  isTokenExpired(token) {
     try {
-      const { authenticatedPerson } = jwt.verify(token, secret, { maxAge: expiration });
-      req.user = authenticatedPerson;
-    } catch {
-      console.log('Wrong token');
+      const decoded = decode(token);
+      if (decoded.exp < Date.now() / 1000) {
+        return true;
+      } else return false;
+    } catch (err) {
+      return false;
     }
+  }
 
-    return req;
-  },
-  signToken: function ({ email, username, _id }) {
-    const payload = { email, username, _id };
-    return jwt.sign({ authenticatedPerson: payload }, secret, { expiresIn: expiration });
-  },
-};
+  getToken() {
+
+    return localStorage.getItem('id_token');
+  }
+
+  login(idToken) {
+    localStorage.setItem('id_token', idToken);
+
+    window.location.assign('/');
+  }
+
+  logout() {
+    localStorage.removeItem('id_token');
+    window.location.assign('/');
+  }
+}
+
+export default new AuthService();
