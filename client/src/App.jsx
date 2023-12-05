@@ -18,15 +18,12 @@ function App() {
     <UserContextProvider>
       <Router>
         <Routes>
-          <Route path='/' element={<LoginPage />} />
+          <Route path='/' element={<Layout />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/layout" element={<Layout />} />
           <Route path="/create" element={<CreatePost />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/edit/:id" element={<EditPost />} />
           <Route path="/post/:id" element={<PostPage />} />
-          
-          {/* Add more Route components here for other paths */}
         </Routes>
       </Router>
     </UserContextProvider>
