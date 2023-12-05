@@ -1,6 +1,6 @@
-const { Schema, model, default: mongoose } = require('mongoose');
+const { Schema, model } = require('mongoose');
 
-const userSchema = newSchema(
+const userSchema = new Schema(
     {
         username: {
             type: String,
@@ -16,7 +16,7 @@ const userSchema = newSchema(
             match: [/.+\@.+\..+/, 'Please enter a valid email address'], //validate email
         },
 
-        pasword: {
+        password: {
             type: String,
             required: [true, 'Please enter password'],
             minlength: [8]
@@ -31,4 +31,5 @@ const userSchema = newSchema(
         ],
     }
 )
-export default mongoose.model('User', userSchema);
+const User = model('User', userSchema);
+module.exports = User;
