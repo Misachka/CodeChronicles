@@ -1,6 +1,7 @@
 {
   "name": "codechronicles",
 <<<<<<< HEAD
+<<<<<<< HEAD
   "private": true,
   "version": "0.0.0",
   "description": "",
@@ -27,12 +28,21 @@
   "description": "",
   "main": "server/server.js",
   "scripts": {
+=======
+  "version": "1.0.0",
+  "description": "",
+  "main": "server/server.js",
+  "scripts": {
+>>>>>>> 65846e41e6739444078aad3f6f89ae3e846b0d9d
     "start": "node server/server.js",
     "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm run dev\"",
     "install": "cd server && npm i && cd ../client && npm i --production=false",
     "seed": "cd server && npm run seed",
     "build": "cd client && npm run build",
     "render-build": "npm install && npm run build"
+<<<<<<< HEAD
+>>>>>>> 65846e41e6739444078aad3f6f89ae3e846b0d9d
+=======
 >>>>>>> 65846e41e6739444078aad3f6f89ae3e846b0d9d
   },
   "keywords": [],
