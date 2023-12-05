@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, default: mongoose } = require('mongoose');
 
 const userSchema = newSchema(
     {
@@ -20,6 +20,15 @@ const userSchema = newSchema(
             type: String,
             required: [true, 'Please enter password'],
             minlength: [8]
-        }
+        },
+
+        blogs: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Blog',
+                required: true,
+            }
+        ],
     }
 )
+export default mongoose.model('User', userSchema);
