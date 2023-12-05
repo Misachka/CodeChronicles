@@ -22,10 +22,10 @@ const userSchema = new Schema(
             minlength: [8]
         },
 
-        blogs: [
+        posts: [
             {
                 type: Schema.Types.ObjectId,
-                ref: 'Blog',
+                ref: 'Post',
                 required: true,
             }
         ],
