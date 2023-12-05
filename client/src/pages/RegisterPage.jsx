@@ -1,4 +1,6 @@
 import {useState} from "react";
+import Auth from '../utils/auth';
+
 
 export default function RegisterPage() {
   const [username, setUsername] = useState('');
