@@ -10,7 +10,7 @@ const userSchema = new Schema(
         },
 
         email: {
-            trype: String,
+            type: String,
             unique: true,
             required: true,
             match: [/.+\@.+\..+/, 'Please enter a valid email address'], //validate email
@@ -19,13 +19,13 @@ const userSchema = new Schema(
         password: {
             type: String,
             required: [true, 'Please enter password'],
-            minlength: [8]
+            minlength: 8,
         },
 
-        blogs: [
+        posts: [
             {
                 type: Schema.Types.ObjectId,
-                ref: 'Blog',
+                ref: 'Post',
                 required: true,
             }
         ],
