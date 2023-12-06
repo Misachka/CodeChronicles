@@ -21,10 +21,10 @@ function App() {
         <Router>
           <Routes>
             <Route path='/' element={<Layout isLoggedIn={isLoggedIn}/>} />
+            <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/Home" element={<Home />} />
             <Route path="/create" element={<CreatePost />} />
-            <Route path="/register" element={<RegisterPage />} />
             <Route path="/edit/:id" element={<EditPost />} />
             <Route path="/post/:id" element={<PostPage />} />
           </Routes>
