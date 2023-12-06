@@ -1,22 +1,22 @@
 import { useState } from "react";
 import Auth from "../utils/auth";
-import { SIGNIN } from "../utils/mutations";
+import { ADD_USER } from "../utils/mutations";  
 import { useMutation } from "@apollo/client";
 
 export default function RegisterPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const [signin, { loading, error }] = useMutation(SIGNIN);
+  const [addUser, { loading, error }] = useMutation(ADD_USER);  
 
   async function register(ev) {
     ev.preventDefault();
 
     try {
-      const { data } = await signin({
+      const { data } = await addUser({  
         variables: {
-          firstName: username, 
-          lastName: "", 
+          firstName: username,
+          lastName: "",
           email: username,
           password: password,
         },
