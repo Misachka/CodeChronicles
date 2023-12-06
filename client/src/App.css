@@ -5,7 +5,8 @@ a{
   cursor: pointer;
 }
 body{
-  color: #222;
+  color: #300d98;
+  background-color: rgb(10, 179, 241);
 }
 img{
   max-width: 100%;

@@ -1,10 +1,10 @@
-import Header from "./Header";
+import Header from "./Home";
 import {Outlet} from "react-router-dom";
 
-export default function Layout() {
+export default function Layout(props) {
   return (
     <main>
-      <Header />
+      <Header isLoggedIn={props.isLoggedIn}/>
       <Outlet />
     </main>
   );
