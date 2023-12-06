@@ -5,15 +5,15 @@ import {UserContext} from "./UserContext";
 export default function Home(props) {
   const {setUserInfo,userInfo} = useContext(UserContext);
   
-  useEffect(() => {
-    fetch('http://localhost:3000/profile', {
-      credentials: 'include',
-    }).then(response => {
-      response.json().then(userInfo => {
-        setUserInfo(userInfo);
-      });
-    });
-  }, []);
+  // useEffect(() => {
+  //   fetch('http://localhost:3001/profile', {
+  //     credentials: 'include',
+  //   }).then(response => {
+  //     response.json().then(userInfo => {
+  //       setUserInfo(userInfo);
+  //     });
+  //   });
+  // }, []);
 
   function logout() {
     fetch('http://localhost:3000/logout', {
