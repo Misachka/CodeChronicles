@@ -3,9 +3,11 @@
 }
 a{
   cursor: pointer;
+  
 }
 body{
-  color: #222;
+  color: #300d98;
+  background-color: rgb(10, 179, 241);
 }
 img{
   max-width: 100%;
@@ -28,7 +30,7 @@ header a{
 }
 header a.logo{
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 2.0rem;
 }
 header nav{
   display:flex;
