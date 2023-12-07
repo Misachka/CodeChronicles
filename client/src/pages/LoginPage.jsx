@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { UserContext } from "./UserContext";
 import Auth from '../utils/auth';
 import { LOGIN } from '../utils/mutations';
@@ -10,6 +10,9 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [redirect, setRedirect] = useState(false);
   const { setUserInfo } = useContext(UserContext);
+
+  const navigate = useNavigate();
+
 
   const [loginMutation, { loading, error }] = useMutation(LOGIN);
 
@@ -25,27 +28,22 @@ export default function LoginPage() {
       });
 
       const token = data.login.token;
-      Auth.login(token);
-       const userInfoResponse = await fetchUserInfo(); 
-      setUserInfo(userInfoResponse);
-
-      setRedirect(true);
+      Auth.login(token)
+      if (token) {
+        navigate('/')
+      }
     } catch (err) {
       console.error('Login failed:', err);
       alert('Wrong credentials or login failed');
     }
   };
 
-  if (redirect) {
-    return <Navigate to={'/'} />;
-  }
-
   return (
     <form className="login" onSubmit={login}>
       <h1>Login</h1>
       <input
         type="text"
-        placeholder="username"
+        placeholder="e-mail"
         value={username}
         onChange={(ev) => setUsername(ev.target.value)}
       />
@@ -58,7 +56,7 @@ export default function LoginPage() {
       <button type="submit" disabled={loading}>
         {loading ? 'Logging in...' : 'Login'}
       </button>
-      {error && <p>Error: {error.message}</p>}
+      {error && <p>Error: Incorrect Password</p>}
     </form>
   );
 }

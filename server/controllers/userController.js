@@ -24,6 +24,7 @@ module.exports = {
     },
 
     async registerUser(req, res) {
+        
         try {
             const { username, email, password } = req.body;
 
@@ -39,6 +40,7 @@ module.exports = {
                 return res.status(400).json({ message: 'Email is already registered' });
             }
 
+
             // Hash the password before saving it to the database
             const hashedPassword = await bcrypt.hash(password, 12); // Increased cost factor for security
 
@@ -49,6 +51,7 @@ module.exports = {
                 password: hashedPassword,
             });
 
+
             await newUser.save();
 
             return res.status(201).json({ message: 'User registered successfully' });
@@ -57,6 +60,7 @@ module.exports = {
             console.error(error);
             res.status(500).json({ message: 'Internal Server Error' });
         }
+    
     },
 
     async loginUser(req, res) {
