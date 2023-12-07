@@ -22,6 +22,7 @@ export default function RegisterPage() {
         },
       });
 
+
       console.log("Data:", data);  
 console.log("Response:", response);
       const token = response.data.addUser.token;
