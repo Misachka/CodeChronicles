@@ -3,8 +3,11 @@
 }
 a{
   cursor: pointer;
-  
-}
+  }
+  a:hover,
+  a.active {
+    text-decoration: underline;
+  }
 body{
   color: #300d98;
   background-color: rgb(10, 179, 241);
