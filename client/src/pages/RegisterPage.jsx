@@ -22,11 +22,15 @@ export default function RegisterPage() {
         },
       });
 
-      const token = data.addUser.token;
+
+      console.log("Data:", data);  
+console.log("Response:", response);
+      const token = response.data.addUser.token;
       Auth.login(token);
       alert("Registration successful");
     } catch (err) {
       console.error("Registration failed", err);
+      console.log("Error: ", err)
       alert("Registration failed");
     }
   }
