@@ -18,7 +18,7 @@ import PostPage from './pages/PostPage';
 
 // Create an ApolloClient instance
 const httpLink = createHttpLink({
-  uri: 'YOUR_GRAPHQL_ENDPOINT', // Replace with your GraphQL endpoint
+  uri: 'http://localhost:3001/graphql', // Replace with your GraphQL endpoint
 });
 
 const client = new ApolloClient({
