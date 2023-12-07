@@ -1,64 +1,89 @@
-const { Profile, User } = require('../models');
+const { User, Post } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
   Query: {
-    profiles: async () => {
+    users: async () => {
       return User.find();
     },
 
-    profile: async (parent, { profileId }) => {
-      return Profile.findOne({ _id: profileId });
+    user: async (parent, { userId }) => {
+      return User.findOne({ _id: userId });
+    },
+
+    posts: async () => {
+      return Post.find();
+    },
+
+    post: async (parent, { postId }) => {
+      return Post.findOne({ _id: postId });
     },
   },
 
   Mutation: {
-    addProfile: async (parent, { name , email, password }) => {
-      const profile = await Profile.create({ name, email, password });
-      const token = signToken(profile);
+    addUser: async (parent, { username, email, password }) => {
+      const user = await User.create({ username, email, password });
+      const token = signToken(user);
 
-      return { token, profile };
+      return { token, user };
     },
-    login: async (parent, { email, password }) => {
-      const profile = await Profile.findOne({ email });
 
-      if (!profile) {
-        throw AuthenticationError
+    login: async (parent, { email, password }) => {
+      const user = await User.findOne({ email });
+
+      if (!user) {
+        throw new AuthenticationError('Invalid credentials');
       }
 
-      const correctPw = await profile.isCorrectPassword(password);
+      const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
-        throw AuthenticationError
+        throw new AuthenticationError('Invalid credentials');
       }
 
-      const token = signToken(profile);
-      return { token, profile };
+      const token = signToken(user);
+      return { token, user };
     },
-// not sure about this part? Post is not defiend for some reason
-    addPost: async (parent, { profileId, Post }) => {
-      return Profile.findOneAndUpdate(
-        { _id: profileId },
-        {
-          $addToSet: { posts: post },
-        },
-        {
-          new: true,
-          runValidators: true,
-        }
-      );
+
+    addPost: async (parent, { userId, title, content }) => {
+      const user = await User.findById(userId);
+
+      if (!user) {
+        throw new Error('User not found');
+      }
+
+      const newPost = await Post.create({ title, content, user: userId });
+
+      user.posts.push(newPost._id);
+      await user.save();
+
+      return newPost;
     },
-    removeProfile: async (parent, { profileId }) => {
-      return Profile.findOneAndDelete({ _id: profileId });
+
+    removeUser: async (parent, { userId }) => {
+      return User.findOneAndDelete({ _id: userId });
     },
-    removePost: async (parent, { profileId, Post }) => {
-      return Profile.findOneAndUpdate(
-        { _id: profileId },
-        { $pull: { posts: Post } },
-        { new: true }
-      );
+
+    removePost: async (parent, { postId }) => {
+      const deletedPost = await Post.findByIdAndDelete(postId);
+
+      if (!deletedPost) {
+        throw new Error('Post not found');
+      }
+
+      const user = await User.findById(deletedPost.user);
+
+      if (!user) {
+        throw new Error('Internal Server Error');
+      }
+
+      user.posts.pull(postId);
+      await user.save();
+
+      return deletedPost;
     },
   },
 };
 
 module.exports = resolvers;
+

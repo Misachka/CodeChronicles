@@ -1,48 +1,64 @@
-import {useContext, useState} from "react";
-import {Navigate} from "react-router-dom";
-import {UserContext} from "./UserContext";
+import { useContext, useState } from "react";
+import { Navigate } from "react-router-dom";
+import { UserContext } from "./UserContext";
 import Auth from '../utils/auth';
-import {LOGIN} from '../utils//mutations';
-import {useMutation} from '@apollo/client';
+import { LOGIN } from '../utils/mutations';
+import { useMutation } from '@apollo/client';
 
 export default function LoginPage() {
-  const [username,setUsername] = useState('');
-  const [password,setPassword] = useState('');
-  const [redirect,setRedirect] = useState(false);
-  const {setUserInfo} = useContext(UserContext);
-  async function login(ev) {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [redirect, setRedirect] = useState(false);
+  const { setUserInfo } = useContext(UserContext);
+
+  const [loginMutation, { loading, error }] = useMutation(LOGIN);
+
+  const login = async (ev) => {
     ev.preventDefault();
-    const response = await fetch('http://localhost:4000/login', {
-      method: 'POST',
-      body: JSON.stringify({username, password}),
-      headers: {'Content-Type':'application/json'},
-      credentials: 'include',
-    });
-    if (response.ok) {
-      response.json().then(userInfo => {
-        setUserInfo(userInfo);
-        setRedirect(true);
+
+    try {
+      const { data } = await loginMutation({
+        variables: {
+          email: username,
+          password: password,
+        },
       });
-    } else {
-      alert('wrong credentials');
+
+      const token = data.login.token;
+      Auth.login(token);
+       const userInfoResponse = await fetchUserInfo(); 
+      setUserInfo(userInfoResponse);
+
+      setRedirect(true);
+    } catch (err) {
+      console.error('Login failed:', err);
+      alert('Wrong credentials or login failed');
     }
-  }
+  };
 
   if (redirect) {
-    return <Navigate to={'/'} />
+    return <Navigate to={'/'} />;
   }
+
   return (
     <form className="login" onSubmit={login}>
       <h1>Login</h1>
-      <input type="text"
-             placeholder="username"
-             value={username}
-             onChange={ev => setUsername(ev.target.value)}/>
-      <input type="password"
-             placeholder="password"
-             value={password}
-             onChange={ev => setPassword(ev.target.value)}/>
-      <button>Login</button>
+      <input
+        type="text"
+        placeholder="username"
+        value={username}
+        onChange={(ev) => setUsername(ev.target.value)}
+      />
+      <input
+        type="password"
+        placeholder="password"
+        value={password}
+        onChange={(ev) => setPassword(ev.target.value)}
+      />
+      <button type="submit" disabled={loading}>
+        {loading ? 'Logging in...' : 'Login'}
+      </button>
+      {error && <p>Error: {error.message}</p>}
     </form>
   );
 }
