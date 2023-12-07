@@ -1,3 +1,80 @@
 [
+    {
+      "username": "alice_smith",
+      "email": "alice_smith@example.com",
+      "password": "password123",
+      "posts": [
+        {
+          "title": "First Impressions",
+          "content": "New beginnings!"
+        },
+        {
+          "title": "Exploring the Unknown",
+          "content": "Adventures await!"
+        }
+      ]
+    },
+    {
+      "username": "bob_jones",
+      "email": "bob_jones@example.com",
+      "password": "securepass",
+      "posts": [
+        {
+          "title": "Journey of Discoveries",
+          "content": "Finding new passions..."
+        },
+        {
+          "title": "Into the Wild",
+          "content": "Embracing nature's beauty!"
+        }
+      ]
+    },
+    {
+      "username": "emma_davis",
+      "email": "emma_davis@example.com",
+      "password": "password456",
+      "posts": [
+        {
+          "title": "Learning Moments",
+          "content": "Gaining new insights!"
+        },
+        {
+          "title": "Reflections",
+          "content": "Contemplating thoughts..."
+        }
+      ]
+    },
+    {
+      "username": "liam_wilson",
+      "email": "liam_wilson@example.com",
+      "password": "liam_pass",
+      "posts": [
+        {
+          "title": "Discovering Paths",
+          "content": "Exploring new directions!"
+        },
+        {
+          "title": "In the Woods",
+          "content": "Lost in the serenity..."
+        }
+      ]
+    },
+    {
+      "username": "olivia_martin",
+      "email": "olivia_martin@example.com",
+      "password": "olivia_pass",
+      "posts": [
+        {
+          "title": "Cherished Memories",
+          "content": "Moments to remember!"
+        },
+        {
+          "title": "Cityscape Wonders",
+          "content": "Marveling at city views..."
+        }
+      ]
+    }
+  ]
+  
+  
     
-]
