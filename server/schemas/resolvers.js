@@ -1,5 +1,6 @@
-const { User, Post } = require('../models');
-const { signToken, AuthenticationError } = require('../utils/auth');
+const { User, Post } = require("../models");
+const { signToken, AuthenticationError } = require("../utils/auth");
+const bcrypt = require("bcrypt");
 
 const resolvers = {
   Query: {
@@ -22,7 +23,13 @@ const resolvers = {
 
   Mutation: {
     addUser: async (parent, { username, email, password }) => {
-      const user = await User.create({ username, email, password });
+      // Hash the password before saving it to the database
+      const hashedPassword = await bcrypt.hash(password, 12); // Increased cost factor for security
+      const user = await User.create({
+        username,
+        email,
+        password: hashedPassword,
+      });
       const token = signToken(user);
 
       return { token, user };
@@ -30,15 +37,18 @@ const resolvers = {
 
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
+      // console.log(user);
 
       if (!user) {
-        throw new AuthenticationError('Invalid credentials');
+        throw new AuthenticationError("Invalid credentials");
       }
 
-      const correctPw = await user.isCorrectPassword(password);
+      const correctPw = await bcrypt.compare(password, user.password);
+
+      // const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
-        throw new AuthenticationError('Invalid credentials');
+        throw new AuthenticationError("Invalid credentials");
       }
 
       const token = signToken(user);
@@ -49,7 +59,7 @@ const resolvers = {
       const user = await User.findById(userId);
 
       if (!user) {
-        throw new Error('User not found');
+        throw new Error("User not found");
       }
 
       const newPost = await Post.create({ title, content, user: userId });
@@ -68,13 +78,13 @@ const resolvers = {
       const deletedPost = await Post.findByIdAndDelete(postId);
 
       if (!deletedPost) {
-        throw new Error('Post not found');
+        throw new Error("Post not found");
       }
 
       const user = await User.findById(deletedPost.user);
 
       if (!user) {
-        throw new Error('Internal Server Error');
+        throw new Error("Internal Server Error");
       }
 
       user.posts.pull(postId);
@@ -86,4 +96,3 @@ const resolvers = {
 };
 
 module.exports = resolvers;
-
