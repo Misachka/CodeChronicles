@@ -13,7 +13,7 @@ body{
   background-color: rgb(10, 179, 241);
 }
 img{
-  max-width: 100%;
+  max-width: none;
 }
 main{
   padding: 10px;
