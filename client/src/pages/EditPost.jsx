@@ -40,6 +40,16 @@ export default function EditPost() {
       setRedirect(true);
     }
   }
+// code for deletion of posts
+  async function deletePost() {
+    const response = await fetch(`http://localhost:4000/post/${id}`, {
+      method: "DELETE",
+      credentials: "include",
+    });
+    if (response.ok) {
+      setRedirect(true);
+    }
+  }
 
   if (redirect) {
     return <Navigate to={'/post/'+id} />
@@ -59,6 +69,9 @@ export default function EditPost() {
              onChange={ev => setFiles(ev.target.files)} />
       <Editor onChange={setContent} value={content} />
       <button style={{marginTop:'5px'}}>Update post</button>
+      <button type="button" onClick={deletePost} style={{ marginTop: "5px", marginLeft: "5px" }}>
+        Delete post
+      </button>
     </form>
   );
 }
