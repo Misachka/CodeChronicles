@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "./UserContext";
 import Auth from '../utils/auth';
 import { LOGIN } from '../utils/mutations';
@@ -8,12 +8,8 @@ import { useMutation } from '@apollo/client';
 export default function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [redirect, setRedirect] = useState(false);
   const { setUserInfo } = useContext(UserContext);
-
   const navigate = useNavigate();
-
-
   const [loginMutation, { loading, error }] = useMutation(LOGIN);
 
   const login = async (ev) => {
@@ -28,9 +24,10 @@ export default function LoginPage() {
       });
 
       const token = data.login.token;
-      Auth.login(token)
+      Auth.login(token);
+
       if (token) {
-        navigate('/')
+        navigate('/dashboard'); // Redirect to '/dashboard' after successful login
       }
     } catch (err) {
       console.error('Login failed:', err);
@@ -60,3 +57,4 @@ export default function LoginPage() {
     </form>
   );
 }
+

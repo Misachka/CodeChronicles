@@ -16,6 +16,7 @@ import RegisterPage from './pages/RegisterPage';
 import EditPost from './pages/EditPost';
 import PostPage from './pages/PostPage';
 import Dashboard from './pages/Dashboard';
+import Logout from './pages/Logout';
 
 // Create an ApolloClient instance
 const httpLink = createHttpLink({
@@ -45,6 +46,7 @@ function App() {
               <Route path="/edit/:id" element={<EditPost />} />
               <Route path="/post/:id" element={<PostPage />} />
               <Route path="/Dashboard" element={<Dashboard />} />
+              <Route path="/Logout" element={<Logout />} />
             </Routes>
           </Router>
         </ApolloProvider>
