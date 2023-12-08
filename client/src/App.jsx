@@ -42,7 +42,7 @@ function App() {
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/Home" element={<Home />} />
-              <Route path="/create" element={<CreatePost />} />
+              <Route path="/create-post" element={<CreatePost />} />
               <Route path="/edit/:id" element={<EditPost />} />
               <Route path="/post/:id" element={<PostPage />} />
               <Route path="/Dashboard" element={<Dashboard />} />
