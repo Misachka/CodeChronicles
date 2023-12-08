@@ -9,41 +9,42 @@ export const QUERY_USER = gql`
     }
   }
 `;
+import { gql } from '@apollo/client';
 
 export const QUERY_POST = gql`
-query getPost() {
-  post {
-    _id
-    title
-    body
-    createdAt
-    username
-    commentCount
-    comments {
+  query getPost($postId: ID!) {
+    post(postId: $postId) {
       _id
+      title
+      body
       createdAt
       username
-      body
+      commentCount
+      comments {
+        _id
+        createdAt
+        username
+        body
+      }
     }
   }
-}
 `;
 
 export const QUERY_ALL_POSTS = gql`
- {
-  posts {
-    _id
-    title
-    body
-    createdAt
-    username
-    commentCount
-    comments {
+  query getAllPosts {
+    posts {
       _id
+      title
+      body
       createdAt
       username
-      body
+      commentCount
+      comments {
+        _id
+        createdAt
+        username
+        body
+      }
     }
   }
-}
 `;
