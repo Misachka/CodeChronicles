@@ -34,3 +34,23 @@ export const ADD_USER  = gql`
     }
   }
 `;
+
+export const CREATE_POST = gql`
+  mutation createPost(
+    $title: String!
+    $summary: String!
+    $content: String!
+    $file: Upload
+  ) {
+    createPost(
+      title: $title
+      summary: $summary
+      content: $content
+      file: $file
+    ) {
+      _id
+      
+    }
+  }
+`;
+
