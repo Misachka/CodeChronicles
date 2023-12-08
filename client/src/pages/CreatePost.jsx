@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import Editor from "./Editor";
+import { useMutation } from "@apollo/client";
+import { CREATE_POST } from "../utils/mutations";
 
 export default function CreatePost() {
   const [title, setTitle] = useState('');
@@ -9,29 +11,26 @@ export default function CreatePost() {
   const [files, setFiles] = useState('');
   const [redirect, setRedirect] = useState(false);
 
+  const [createPostMutation, { loading, error }] = useMutation(CREATE_POST);
+
   async function createNewPost(ev) {
     ev.preventDefault();
 
-    const data = new FormData();
-    data.append('title', title);
-    data.append('summary', summary);
-    data.append('content', content);
-    data.append('file', files[0]);
-
     try {
-      const response = await fetch('http://localhost:3000/post', {
-        method: 'POST',
-        body: data,
-        credentials: 'include',
+      const { data } = await createPostMutation({
+        variables: {
+          title: title,
+          summary: summary,
+          content: content,
+          file: files[0],
+        },
       });
 
-      if (response.ok) {
+      if (data.createPost) {
         setRedirect(true);
-      } else {
-        console.error('Error creating post:', response.statusText);
       }
-    } catch (error) {
-      console.error('Error creating post:', error);
+    } catch (err) {
+      console.error('Error creating post:', err);
     }
   }
 
@@ -42,13 +41,13 @@ export default function CreatePost() {
   return (
     <form onSubmit={createNewPost}>
       <input
-        type="text"
+        type="title"
         placeholder={'Title'}
         value={title}
         onChange={(ev) => setTitle(ev.target.value)}
       />
       <input
-        type="text"
+        type="summary"
         placeholder={'Summary'}
         value={summary}
         onChange={(ev) => setSummary(ev.target.value)}
@@ -58,9 +57,47 @@ export default function CreatePost() {
         onChange={(ev) => setFiles(ev.target.files)}
       />
       <Editor value={content} onChange={setContent} />
-      <button type="submit" style={{ marginTop: '5px' }}>
-        Create post
+      <button style={{ marginTop: '5px' }} disabled={loading}>
+        {loading ? 'Creating post...' : 'Create post'}
       </button>
     </form>
   );
 }
+
+//   async function createNewPost(ev) {
+//     const data = new FormData();
+//     data.set('title', title);
+//     data.set('summary', summary);
+//     data.set('content', content);
+//     data.set('file', files[0]);
+//     ev.preventDefault();
+//     const response = await fetch('http://localhost:4000/post', {
+//       method: 'POST',
+//       body: data,
+//       credentials: 'include',
+//     });
+//     if (response.ok) {
+//       setRedirect(true);
+//     }
+//   }
+
+//   if (redirect) {
+//     return <Navigate to={'/'} />
+//   }
+//   return (
+//     <form onSubmit={createNewPost}>
+//       <input type="title"
+//              placeholder={'Title'}
+//              value={title}
+//              onChange={ev => setTitle(ev.target.value)} />
+//       <input type="summary"
+//              placeholder={'Summary'}
+//              value={summary}
+//              onChange={ev => setSummary(ev.target.value)} />
+//       <input type="file"
+//              onChange={ev => setFiles(ev.target.files)} />
+//       <Editor value={content} onChange={setContent} />
+//       <button style={{marginTop:'5px'}}>Create post</button>
+//     </form>
+//   );
+// }

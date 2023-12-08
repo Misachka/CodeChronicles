@@ -13,9 +13,15 @@ export const reducer = (state, action) => {
             };
 
         case UPDATE_POST:
+ 
+            const updatedIndex = state.posts.findIndex(post => post._id === action.post._id);
+
+            const updatedPosts = [...state.posts];
+            updatedPosts[updatedIndex] = action.post;
+
             return {
                 ...state,
-                posts: [...state.posts, action.post]
+                posts: updatedPosts
             };
 
         case DELETE_POST:
