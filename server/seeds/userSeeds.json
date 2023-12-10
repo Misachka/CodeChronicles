@@ -4,11 +4,12 @@
       "email": "alice_smith@example.com",
       "password": "password123",
       "posts": [
-        {
+        {  
+          
           "title": "First Impressions",
           "content": "New beginnings!"
         },
-        {
+        {"post_id": 2,
           "title": "Exploring the Unknown",
           "content": "Adventures await!"
         }
@@ -20,10 +21,12 @@
       "password": "securepass",
       "posts": [
         {
+          "post_id": 3,
           "title": "Journey of Discoveries",
           "content": "Finding new passions..."
         },
         {
+          "post_id": 4,
           "title": "Into the Wild",
           "content": "Embracing nature's beauty!"
         }
@@ -35,10 +38,12 @@
       "password": "password456",
       "posts": [
         {
+          "post_id": 5,
           "title": "Learning Moments",
           "content": "Gaining new insights!"
         },
         {
+          "post_id": 6,
           "title": "Reflections",
           "content": "Contemplating thoughts..."
         }
@@ -50,10 +55,12 @@
       "password": "liam_pass",
       "posts": [
         {
+          "post_id": 7,
           "title": "Discovering Paths",
           "content": "Exploring new directions!"
         },
         {
+          "post_id": 8,
           "title": "In the Woods",
           "content": "Lost in the serenity..."
         }
@@ -65,10 +72,12 @@
       "password": "olivia_pass",
       "posts": [
         {
+          "post_id": 9,
           "title": "Cherished Memories",
           "content": "Moments to remember!"
         },
         {
+          "post_id": 10,
           "title": "Cityscape Wonders",
           "content": "Marveling at city views..."
         }

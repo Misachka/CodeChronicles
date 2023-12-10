@@ -36,20 +36,22 @@ export const ADD_USER  = gql`
 `;
 
 export const CREATE_POST = gql`
-  mutation createPost(
+  mutation addPost(
     $title: String!
-    $summary: String!
     $content: String!
-    $file: Upload
   ) {
-    createPost(
+    addPost(
       title: $title
-      summary: $summary
+     
       content: $content
-      file: $file
     ) {
       _id
-      
+      title
+      content
+      username {
+        _id  
+        username
+      }
     }
   }
 `;
@@ -59,9 +61,8 @@ export const DELETE_POST = gql`
     deletePost(postId: $postId) {
       _id
       title
-      summary
       content
-      file
+      
     }
   }
 `;

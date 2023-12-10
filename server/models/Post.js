@@ -8,16 +8,38 @@ const postSchema = new Schema(
             required: true,
         },
 
-        content: {
-            type: String,
+        username: {
+            type: Schema.Types.ObjectId,
+            ref: 'User',  // Reference the 'User' model
             required: true,
         },
 
-        user: {
-            type: Schema.Types.ObjectId,
-            ref: 'User',
+        content: {
+            type: String,
+            minlength: 5,
             required: true,
         },
+
+        createdAt: {
+            type: Date,
+            default: Date.now(),
+            get: function (date) {
+              const month = date.getMonth() + 1;
+              const day = date.getDate();
+              const year = date.getFullYear();
+              return `${month}/${day}/${year}`;
+            },
+          },
+
+    },
+
+    {
+        toJSON: {
+            virtuals: true,
+            getters: true,
+        },
+
+        id: false,
     }
 );
 

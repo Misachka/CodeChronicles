@@ -1,49 +1,58 @@
 import { gql } from '@apollo/client';
 
-export const QUERY_USER = gql`
-  query user($username: String!) {
-    user(username: $username) {
+export const GET_USER = gql`
+  query GetUser {
+    getUserById {
       _id
       username
       email
-    }
-  }
-`;
-import { gql } from '@apollo/client';
-
-export const QUERY_POST = gql`
-  query getPost($postId: ID!) {
-    post(postId: $postId) {
-      _id
-      title
-      body
-      createdAt
-      username
-      commentCount
-      comments {
+      posts {
         _id
-        createdAt
-        username
-        body
+        title
+        content
       }
     }
   }
 `;
 
-export const QUERY_ALL_POSTS = gql`
-  query getAllPosts {
-    posts {
+export const GET_ALL_USERS = gql`
+  query GetAllUsers {
+    getAllUsers {
+      _id
+      username
+      email
+      posts {
+        _id
+        title
+        content
+      }
+    }
+  }
+`;
+
+export const GET_POST = gql`
+  query GetPost {
+    getPostById {
       _id
       title
-      body
-      createdAt
-      username
-      commentCount
-      comments {
+      content
+      username {
         _id
-        createdAt
         username
-        body
+      }
+    }
+  }
+`;
+
+export const GET_ALL_POSTS = gql`
+  query GetAllPosts {
+    getAllPosts {
+      _id
+      title
+      content
+      username {
+        _id
+        username
       }
     }
   }

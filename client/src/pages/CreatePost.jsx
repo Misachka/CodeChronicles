@@ -6,9 +6,9 @@ import { CREATE_POST } from "../utils/mutations";
 
 export default function CreatePost() {
   const [title, setTitle] = useState('');
-  const [summary, setSummary] = useState('');
+  // const [summary, setSummary] = useState('');
   const [content, setContent] = useState('');
-  const [files, setFiles] = useState('');
+  // const [files, setFiles] = useState('');
   const [redirect, setRedirect] = useState(false);
 
   const [createPostMutation, { loading, error }] = useMutation(CREATE_POST);
@@ -20,9 +20,9 @@ export default function CreatePost() {
       const { data } = await createPostMutation({
         variables: {
           title: title,
-          summary: summary,
+          // summary: summary,
           content: content,
-          file: files[0],
+          // file: files[0],
         },
       });
 
@@ -39,28 +39,45 @@ export default function CreatePost() {
   }
 
   return (
+    // <form onSubmit={createNewPost}>
+    //   <input
+    //     type="title"
+    //     placeholder={'Title'}
+    //     value={title}
+    //     onChange={(ev) => setTitle(ev.target.value)}
+    //   />
+    //   {/* <input
+    //     type="summary"
+    //     placeholder={'Summary'}
+    //     value={content}
+    //     onChange={(ev) => setSummary(ev.target.value)}
+    //   /> */}
+    //   {/* <input
+    //     type="file"
+    //     onChange={(ev) => setFiles(ev.target.files)}
+    //   /> */}
+    //   <Editor value={content} onChange={setContent} />
+    //   <button style={{ marginTop: '5px' }} disabled={loading}>
+    //     {loading ? 'Creating post...' : 'Create post'}
+    //   </button>
+    // </form>
+
+    //Yemny's test
     <form onSubmit={createNewPost}>
-      <input
-        type="title"
-        placeholder={'Title'}
-        value={title}
-        onChange={(ev) => setTitle(ev.target.value)}
-      />
-      <input
-        type="summary"
-        placeholder={'Summary'}
-        value={summary}
-        onChange={(ev) => setSummary(ev.target.value)}
-      />
-      <input
-        type="file"
-        onChange={(ev) => setFiles(ev.target.files)}
-      />
-      <Editor value={content} onChange={setContent} />
+      <input type='title' placeholder="Title" value={title}
+        onChange={(ev) => setTitle(ev.target.value)}>
+      </input>
+      <div>
+        <textarea value={content}
+          onChange={(ev) => setContent(ev.target.value)}>
+
+        </textarea>
+      </div>
       <button style={{ marginTop: '5px' }} disabled={loading}>
         {loading ? 'Creating post...' : 'Create post'}
       </button>
     </form>
+
   );
 }
 
