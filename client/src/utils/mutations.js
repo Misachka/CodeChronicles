@@ -57,8 +57,8 @@ export const CREATE_POST = gql`
 `;
 
 export const DELETE_POST = gql`
-  mutation deletePost($postId: ID!) {
-    deletePost(postId: $postId) {
+  mutation removePost($postId: ID!) {
+    removePost(postId: $postId) {
       _id
       title
       content

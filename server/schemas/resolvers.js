@@ -5,19 +5,19 @@ const { signToken } = require("../utils/auth");
 const resolvers = {
   Query: {
     getAllUsers: async () => {
-      return User.find();
+      return User.find().populate('posts');;
     },
 
     getUserById: async (parent, args, context) => {
-      return User.findOne({ _id: context.user._id });
+      return User.findOne({ _id: context.user._id }).populate('posts');;
     },
 
     getAllPosts: async () => {
-      return Post.find();
+      return Post.find().populate('username');
     },
 
     getPostById: async (parent, { postId }) => {
-      return Post.findOne({ _id: postId });
+      return Post.findOne({ _id: postId }).populate('username');
     },
   },
 
@@ -77,6 +77,7 @@ const resolvers = {
         throw new Error("Internal Server Error");
       }
     },
+    
 
     removeUser: async (parent, { userId }) => {
       return User.findOneAndDelete({ _id: userId });
