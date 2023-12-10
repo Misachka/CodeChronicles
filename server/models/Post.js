@@ -9,7 +9,8 @@ const postSchema = new Schema(
         },
 
         username: {
-            type: String,
+            type: Schema.Types.ObjectId,
+            ref: 'User',  // Reference the 'User' model
             required: true,
         },
 

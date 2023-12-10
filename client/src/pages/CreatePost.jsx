@@ -39,28 +39,45 @@ export default function CreatePost() {
   }
 
   return (
+    // <form onSubmit={createNewPost}>
+    //   <input
+    //     type="title"
+    //     placeholder={'Title'}
+    //     value={title}
+    //     onChange={(ev) => setTitle(ev.target.value)}
+    //   />
+    //   {/* <input
+    //     type="summary"
+    //     placeholder={'Summary'}
+    //     value={content}
+    //     onChange={(ev) => setSummary(ev.target.value)}
+    //   /> */}
+    //   {/* <input
+    //     type="file"
+    //     onChange={(ev) => setFiles(ev.target.files)}
+    //   /> */}
+    //   <Editor value={content} onChange={setContent} />
+    //   <button style={{ marginTop: '5px' }} disabled={loading}>
+    //     {loading ? 'Creating post...' : 'Create post'}
+    //   </button>
+    // </form>
+
+    //Yemny's test
     <form onSubmit={createNewPost}>
-      <input
-        type="title"
-        placeholder={'Title'}
-        value={title}
-        onChange={(ev) => setTitle(ev.target.value)}
-      />
-      {/* <input
-        type="summary"
-        placeholder={'Summary'}
-        value={summary}
-        onChange={(ev) => setSummary(ev.target.value)}
-      />
-      <input
-        type="file"
-        onChange={(ev) => setFiles(ev.target.files)}
-      /> */}
-      <Editor value={content} onChange={setContent} />
+      <input type='title' placeholder="Title" value={title}
+        onChange={(ev) => setTitle(ev.target.value)}>
+      </input>
+      <div>
+        <textarea value={content}
+          onChange={(ev) => setContent(ev.target.value)}>
+
+        </textarea>
+      </div>
       <button style={{ marginTop: '5px' }} disabled={loading}>
         {loading ? 'Creating post...' : 'Create post'}
       </button>
     </form>
+
   );
 }
 

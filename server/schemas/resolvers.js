@@ -53,19 +53,29 @@ const resolvers = {
       return { token, user };
     },
 
-    addPost: async (parent, { userId, title, content }) => {
-      const user = await User.findById(userId);
+    addPost: async (parent, { title, content }, context) => {
+      try {
 
-      if (!user) {
-        throw new Error("User not found");
+        const newPost = (await Post.create({ title, content, username: context.user._id })).populate("username");
+
+        const user = await User.findById(context.user._id);
+    
+        if (!user) {
+          throw new Error("User not found");
+        }
+
+        console.log(user);
+    
+        
+    
+        user.posts.push(newPost._id);
+        await user.save();
+    
+        return newPost;
+      } catch (error) {
+        console.error(error);
+        throw new Error("Internal Server Error");
       }
-
-      const newPost = await Post.create({ title, content, username: user.username });
-
-      user.posts.push(newPost._id);
-      await user.save();
-
-      return newPost;
     },
 
     removeUser: async (parent, { userId }) => {
