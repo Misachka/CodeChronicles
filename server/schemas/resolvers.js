@@ -1,22 +1,22 @@
 const { User, Post } = require("../models");
-const { signToken, AuthenticationError } = require("../utils/auth");
-const bcrypt = require("bcrypt");
+const { signToken } = require("../utils/auth");
+
 
 const resolvers = {
   Query: {
-    users: async () => {
+    getAllUsers: async () => {
       return User.find();
     },
 
-    user: async (parent, { userId }) => {
-      return User.findOne({ _id: userId });
+    getUserById: async (parent, args, context) => {
+      return User.findOne({ _id: context.user._id });
     },
 
-    posts: async () => {
+    getAllPosts: async () => {
       return Post.find();
     },
 
-    post: async (parent, { postId }) => {
+    getPostById: async (parent, { postId }) => {
       return Post.findOne({ _id: postId });
     },
   },
@@ -24,11 +24,11 @@ const resolvers = {
   Mutation: {
     addUser: async (parent, { username, email, password }) => {
       // Hash the password before saving it to the database
-      const hashedPassword = await bcrypt.hash(password, 12); // Increased cost factor for security
+      // Increased cost factor for security
       const user = await User.create({
         username,
         email,
-        password: hashedPassword,
+        password
       });
       const token = signToken(user);
 
@@ -40,15 +40,13 @@ const resolvers = {
       // console.log(user);
 
       if (!user) {
-        throw new AuthenticationError("Invalid credentials");
+        throw new Error ("Invalid credentials");
       }
 
-      const correctPw = await bcrypt.compare(password, user.password);
-
-      // const correctPw = await user.isCorrectPassword(password);
+      const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
-        throw new AuthenticationError("Invalid credentials");
+        throw new Error("Incorrect password");
       }
 
       const token = signToken(user);
@@ -62,7 +60,7 @@ const resolvers = {
         throw new Error("User not found");
       }
 
-      const newPost = await Post.create({ title, content, user: userId });
+      const newPost = await Post.create({ title, content, username: user.username });
 
       user.posts.push(newPost._id);
       await user.save();

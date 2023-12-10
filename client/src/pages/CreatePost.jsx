@@ -6,9 +6,9 @@ import { CREATE_POST } from "../utils/mutations";
 
 export default function CreatePost() {
   const [title, setTitle] = useState('');
-  const [summary, setSummary] = useState('');
+  // const [summary, setSummary] = useState('');
   const [content, setContent] = useState('');
-  const [files, setFiles] = useState('');
+  // const [files, setFiles] = useState('');
   const [redirect, setRedirect] = useState(false);
 
   const [createPostMutation, { loading, error }] = useMutation(CREATE_POST);
@@ -20,9 +20,9 @@ export default function CreatePost() {
       const { data } = await createPostMutation({
         variables: {
           title: title,
-          summary: summary,
+          // summary: summary,
           content: content,
-          file: files[0],
+          // file: files[0],
         },
       });
 
@@ -46,7 +46,7 @@ export default function CreatePost() {
         value={title}
         onChange={(ev) => setTitle(ev.target.value)}
       />
-      <input
+      {/* <input
         type="summary"
         placeholder={'Summary'}
         value={summary}
@@ -55,7 +55,7 @@ export default function CreatePost() {
       <input
         type="file"
         onChange={(ev) => setFiles(ev.target.files)}
-      />
+      /> */}
       <Editor value={content} onChange={setContent} />
       <button style={{ marginTop: '5px' }} disabled={loading}>
         {loading ? 'Creating post...' : 'Create post'}
