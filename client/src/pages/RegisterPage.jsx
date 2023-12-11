@@ -10,7 +10,6 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-
   const [addUser, { loading, error }] = useMutation(ADD_USER);
 
   async function register(ev) {
