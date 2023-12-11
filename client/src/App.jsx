@@ -22,6 +22,7 @@ import Logout from './pages/Logout';
 // Create an ApolloClient instance
 const httpLink = createHttpLink({
   uri: 'http://localhost:3001/graphql', // Replace with your GraphQL endpoint
+  credentials: 'include',
 });
 
 const authLink = setContext((_, { headers }) => {
