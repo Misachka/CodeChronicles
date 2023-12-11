@@ -1,26 +1,106 @@
-const db = require('../config/connection');
-const { User, Post } = require('../models'); // Import both User and Post models
-const userSeeds = require('./userSeeds.json');
-const postSeeds = require('./postSeeds.json'); // Import post seeds
-const cleanDB = require('./cleanDB');
+const mongoose = require('mongoose');
+const User = require('../models/User');
+const Post = require('.../models/Post');
 
-db.once('open', async () => {
-  try {
-    await cleanDB('User', 'Post');
-
-    // Insert users from userSeeds.json into the User collection
-    await User.insertMany(userSeeds);
-
-    // Insert posts from postSeeds.json into the Post collection
-    await Post.insertMany(postSeeds);
-
-    console.log('All done!');
-    process.exit(0);
-  } catch (err) {
-    console.error('Error:', err);
-    process.exit(1);
-  }
+// Connect to MongoDB database
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/codechronicles', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
 
+// Sample data for users
+const users = [
+  { 
+    username: 'powerCode', 
+    email: 'valery@example.com', 
+    password: 'password1' 
+  },
 
+  { 
+    username: 'curlyCodes', 
+    email: 'nataly@example.com', 
+    password: 'password1' 
+  },
+
+  { 
+    username: 'coolDude', 
+    email: 'vinny@example.com', 
+    password: 'password1' 
+  },
+
+  { 
+    username: 'yourNerdFriend', 
+    email: 'daniel@example.com', 
+    password: 'password1' 
+  },
+
+  { 
+    username: 'miguelito', 
+    email: 'miguel@example.com', 
+    password: 'password1' 
+  },
+  
+];
+
+// Sample data for posts
+const posts = [
+  { 
+    title: 'Authentication vs. Authorization', 
+    content: 'There is a difference between authentication and authorization.Authentication means confirming your own identity, whereas authorization means being allowed access to the system' 
+  },
+
+  { 
+    title: 'GraphQL', 
+    content: 'GraphQLs single greatest benefit is the developer experience it provides. It is straightforward to add new types and fields to your API, and similarly straightforward for your clients to begin using those fields. This helps you design, develop, and deploy features quickly.' 
+  },
+
+  { 
+    title: 'React', 
+    content: 'React JS comprises the in-built functionality of virtual DOM, making the rendering faster and enhancing the overall user experience. In addition, it makes the application lightweight, leading to boost performance and productivity.' 
+  },
+
+  { 
+    title: 'React JS', 
+    content: 'React JS provides the architecture and ecosystem to build business software based on components and reuse each component multiple times.' 
+  },
+
+  { 
+    title: 'Styling', 
+    content: 'If you are not a fan of frontend development or just do not have enought time to design from scratch, consider using libraries like Bootstrap, Tailwind, or Chrakra. They are well documented and easy to use!' 
+  },
+
+  
+  
+];
+
+// Function to seed users
+const seedUsers = async () => {
+  try {
+    await User.deleteMany(); // Remove existing users
+    const createdUsers = await User.create(users);
+    console.log('Users seeded:', createdUsers);
+  } catch (error) {
+    console.error('Error seeding users:', error);
+  }
+};
+
+// Function to seed posts
+const seedPosts = async () => {
+  try {
+    await Post.deleteMany(); // Remove existing posts
+    const createdPosts = await Post.create(posts);
+    console.log('Posts seeded:', createdPosts);
+  } catch (error) {
+    console.error('Error seeding posts:', error);
+  }
+};
+
+// Seed data
+seedUsers()
+  .then(() => seedPosts())
+  .then(() => {
+    console.log('Seed data inserted successfully');
+    mongoose.connection.close(); // Close the database connection after seeding
+  })
+  .catch((error) => console.error('Error seeding data:', error));
 
