@@ -21,7 +21,7 @@ function Header() {
         {Auth.loggedIn() ? (
           <>
             <Link to="/">Home</Link>
-            <Link to="/create">Create new post</Link>
+            <Link to="/create-post">Create new post</Link>
             <Link to="/edit-post">EditPost</Link>
             <a onClick={handleLogOut}>
               Logout ({Auth.getProfile().data.username})

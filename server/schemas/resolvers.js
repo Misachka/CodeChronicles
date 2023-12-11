@@ -40,7 +40,7 @@ const resolvers = {
       // console.log(user);
 
       if (!user) {
-        throw new Error ("Invalid credentials");
+        throw new Error("Invalid credentials");
       }
 
       const correctPw = await user.isCorrectPassword(password);
@@ -56,28 +56,32 @@ const resolvers = {
     addPost: async (parent, { title, content }, context) => {
       try {
 
-        const newPost = (await Post.create({ title, content, username: context.user._id })).populate("username");
+        console.log("Context:", context);
+        console.log("User:", context.user);
+
+        const newPost = (await Post.create({ title, content, username: context.user._id }));
+      
 
         const user = await User.findById(context.user._id);
-    
+
         if (!user) {
           throw new Error("User not found");
         }
 
         console.log(user);
-    
-        
-    
+
+
+
         user.posts.push(newPost._id);
         await user.save();
-    
+
         return newPost;
       } catch (error) {
         console.error(error);
         throw new Error("Internal Server Error");
       }
     },
-    
+
 
     removeUser: async (parent, { userId }) => {
       return User.findOneAndDelete({ _id: userId });

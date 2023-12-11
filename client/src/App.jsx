@@ -49,7 +49,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/create-post/:id" element={<CreatePost />} />
+          <Route path="/create-post" element={<CreatePost />} />
           <Route path="/edit/:id" element={<EditPost />} />
           <Route path="/post" element={<PostPage />} />
           <Route path="/logout" element={<Logout />} />
