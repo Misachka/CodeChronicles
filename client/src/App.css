@@ -26,6 +26,7 @@ header{
   margin-top: 20px;
   margin-bottom: 50px;
   align-items: center;
+  margin-left: 20px;
 }
 header a{
   text-decoration:none;
@@ -38,6 +39,7 @@ header a.logo{
 header nav{
   display:flex;
   gap: 24px;
+  margin-right: 20px;
 }
 
 div.post{
