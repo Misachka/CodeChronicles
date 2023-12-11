@@ -2,11 +2,14 @@ import { useState } from "react";
 import Auth from "../utils/auth";
 import { ADD_USER } from "../utils/mutations";
 import { useMutation } from "@apollo/client";
+import { useNavigate } from "react-router-dom";
 
 export default function RegisterPage() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
 
   const [addUser, { loading, error }] = useMutation(ADD_USER);
 
@@ -26,6 +29,7 @@ export default function RegisterPage() {
       const token = data.addUser.token;
       Auth.login(token);
       alert("Registration successful");
+      navigate("/")
     } catch (err) {
       console.error("Registration failed", err);
       console.log("Error: ", err);
