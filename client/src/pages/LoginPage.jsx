@@ -27,7 +27,7 @@ export default function LoginPage() {
       Auth.login(token);
 
       if (token) {
-        navigate('/dashboard'); // Redirect to '/dashboard' after successful login
+        navigate('/'); 
       }
     } catch (err) {
       console.error('Login failed:', err);
