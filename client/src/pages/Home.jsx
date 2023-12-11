@@ -1,60 +1,46 @@
-import { Link } from 'react-router-dom';
-import { useContext, useEffect } from 'react';
-import { UserContext } from './UserContext';
-import { useQuery } from '@apollo/client';
-import { GET_ALL_POSTS } from '../utils/queries';
+import { Link } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { UserContext } from "../store/UserContext";
+import { useQuery } from "@apollo/client";
+import { GET_ALL_POSTS } from "../utils/queries";
+import backgroundImage from "../assets/backgroundImage.jpg";
 
 function Home(props) {
   const { setUserInfo, userInfo } = useContext(UserContext);
 
-  useEffect(() => {
-    fetch('http://localhost:3001/profile', {
-      credentials: 'include',
-    }).then(response => {
-      response.json().then(userInfo => {
-        setUserInfo(userInfo);
-      });
-    });
-  }, []);
+  const result = useQuery(GET_ALL_POSTS);
+  const { data, fetching, error } = result;
+
+  if (fetching) return "Loading...";
+  if (error) return <pre>{error.message}</pre>;
+
+  console.log(data)
 
   function logout() {
-    fetch('http://localhost:3000/logout', {
-      credentials: 'include',
-      method: 'POST',
-    });
     setUserInfo(null);
   }
 
-  const username = userInfo?.username;
-
   return (
-    <>
-      <header>
-        <Link to="/" className="logo">
-          Code Chronicles
-        </Link>
-        <nav>
-          {username && (
-            <>
-              <Link to="/create">Create new post</Link>
-              <a onClick={logout}>Logout ({username})</a>
-            </>
-          )}
-          {!username && (
-            <>
-              <Link to="/login">Login</Link>
-              <Link to="/register">Register</Link>
-            </>
-          )}
-        </nav>
-      </header>
-
+    <div
+      style={{
+        backgroundImage: `url(${backgroundImage})`, // Set the image as background
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        width: "100vw",
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+        color: "white", // Text color for visibility on the image
+      }}
+    >
       <div>
         <h2>All Posts</h2>
         {/* PostList component here */}
         <PostList />
       </div>
-    </>
+    </div>
   );
 }
 
@@ -84,4 +70,3 @@ function PostList() {
 }
 
 export default Home; // Export the Home component as the default export
-

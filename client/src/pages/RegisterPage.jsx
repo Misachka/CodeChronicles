@@ -4,7 +4,6 @@ import { ADD_USER } from "../utils/mutations";
 import { useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 
-
 export default function RegisterPage() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -29,10 +28,7 @@ export default function RegisterPage() {
       const token = data.addUser.token;
       Auth.login(token);
       alert("Registration successful");
-
-      if (token) {
-        navigate('/Home'); //redirect to '/home after successful registration
-      }
+      navigate("/")
     } catch (err) {
       console.error("Registration failed", err);
       console.log("Error: ", err);

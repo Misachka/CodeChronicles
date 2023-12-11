@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "./UserContext";
+import { UserContext } from "../store/UserContext";
 import Auth from '../utils/auth';
 import { LOGIN } from '../utils/mutations';
 import { useMutation } from '@apollo/client';
