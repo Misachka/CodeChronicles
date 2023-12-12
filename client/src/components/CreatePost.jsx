@@ -39,47 +39,65 @@ export default function CreatePost() {
   }
 
   return (
-    // <form onSubmit={createNewPost}>
-    //   <input
-    //     type="title"
-    //     placeholder={'Title'}
-    //     value={title}
-    //     onChange={(ev) => setTitle(ev.target.value)}
-    //   />
-    //   {/* <input
-    //     type="summary"
-    //     placeholder={'Summary'}
-    //     value={content}
-    //     onChange={(ev) => setSummary(ev.target.value)}
-    //   /> */}
-    //   {/* <input
-    //     type="file"
-    //     onChange={(ev) => setFiles(ev.target.files)}
-    //   /> */}
-    //   <Editor value={content} onChange={setContent} />
-    //   <button style={{ marginTop: '5px' }} disabled={loading}>
-    //     {loading ? 'Creating post...' : 'Create post'}
-    //   </button>
-    // </form>
-
-    //Yemny's test
-    <form onSubmit={createNewPost}>
-      <input type='title' placeholder="Title" value={title}
-        onChange={(ev) => setTitle(ev.target.value)}>
-      </input>
-      <div>
-        <textarea value={content}
-          onChange={(ev) => setContent(ev.target.value)}>
-
-        </textarea>
-      </div>
-      <button style={{ marginTop: '5px' }} disabled={loading}>
+    <form onSubmit={createNewPost} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      {/* Title Input */}
+      <input
+        type='text'
+        placeholder="Title"
+        value={title}
+        onChange={(ev) => setTitle(ev.target.value)}
+        style={{
+          marginBottom: '10px',
+          padding: '10px',
+          fontSize: '1.5em', // Updated font size to match textarea
+          width: '70%',
+          textAlign: 'center',
+          borderRadius: '10px',
+          border: '1px solid #ccc',
+          outline: 'none',
+        }}
+      />
+  
+      {/* Content Textarea */}
+      <textarea
+        value={content}
+        onChange={(ev) => setContent(ev.target.value)}
+        style={{
+          border: '1px solid #ccc',
+          minHeight: '200px',
+          padding: '20px',
+          fontSize: '2em', // Updated font size to match input
+          width: '70%',
+          marginBottom: '10px',
+          textAlign: 'center',
+          borderRadius: '10px',
+          outline: 'none',
+        }}
+      />
+  
+      {/* Button for Submission */}
+      <button
+        style={{
+          padding: '8px 16px',
+          fontSize: '1em',
+          backgroundColor: '#007bff',
+          color: 'white',
+          border: 'none',
+          borderRadius: '4px',
+          cursor: 'pointer',
+          width: '20%',
+          borderRadius: '10px',
+        }}
+        disabled={loading}
+      >
         {loading ? 'Creating post...' : 'Create post'}
       </button>
     </form>
-
   );
-}
+  }  
+
+
+
 
 //   async function createNewPost(ev) {
 //     const data = new FormData();
