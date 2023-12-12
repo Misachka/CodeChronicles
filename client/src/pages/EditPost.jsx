@@ -28,9 +28,9 @@ export default function EditPost() {
 
   useEffect(() => {
     if (!userPostsLoading && !userPostsError && userPostsData) {
-      const posts = userPostsData.getPostsByUser;
+      const posts = userPostsData.getUserPosts;
       console.log(posts);
-      setPosts(posts);
+      //setPosts(posts);
     }
   }, [userPostsLoading, userPostsError, userPostsData]);
 
