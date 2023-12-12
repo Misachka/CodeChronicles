@@ -26,14 +26,14 @@ const resolvers = {
       }
 
       try {
-        
         const user = await User.findById(context.user._id);
 
         if (!user) {
           throw new Error("User not found");
         }
 
-        return Post.find({ 'username._id': user._id });
+        // Use .populate() to include user details in the retrieved posts
+        return Post.find({ 'username': user._id }).populate('username');
       } catch (error) {
         console.error(error);
         throw new Error("Error fetching user posts");
@@ -47,113 +47,113 @@ const resolvers = {
       // Hash the password before saving it to the database
       // Increased cost factor for security
       const user = await User.create({
-      username,
-      email,
-      password
-    });
-const token = signToken(user);
+        username,
+        email,
+        password
+      });
+      const token = signToken(user);
 
-return { token, user };
+      return { token, user };
     },
 
-login: async (parent, { email, password }) => {
-  const user = await User.findOne({ email });
-  // console.log(user);
-
-  if (!user) {
-    throw new Error("Invalid credentials");
-  }
-
-  const correctPw = await user.isCorrectPassword(password);
-
-  if (!correctPw) {
-    throw new Error("Incorrect password");
-  }
-
-  const token = signToken(user);
-  return { token, user };
-},
-
-  addPost: async (parent, { title, content }, context) => {
-    try {
-
-      console.log("Context:", context);
-      console.log("User:", context.user);
-
-      const newPost = (await Post.create({ title, content, username: context.user._id }));
-
-
-      const user = await User.findById(context.user._id);
+    login: async (parent, { email, password }) => {
+      const user = await User.findOne({ email });
+      // console.log(user);
 
       if (!user) {
-        throw new Error("User not found");
+        throw new Error("Invalid credentials");
       }
 
-      console.log(user);
+      const correctPw = await user.isCorrectPassword(password);
 
-
-
-      user.posts.push(newPost._id);
-      await user.save();
-
-      return newPost;
-    } catch (error) {
-      console.error(error);
-      throw new Error("Internal Server Error");
-    }
-  },
-
-  updatePost: async (_, { id, title, content }, context) => {
-    try {
-  
-      if (!context.user) {
-        throw new Error('User not authenticated');
+      if (!correctPw) {
+        throw new Error("Incorrect password");
       }
 
-      const post = await Post.findById(id);
+      const token = signToken(user);
+      return { token, user };
+    },
 
-      if (!post) {
-        throw new Error('Post not found');
+    addPost: async (parent, { title, content }, context) => {
+      try {
+
+        console.log("Context:", context);
+        console.log("User:", context.user);
+
+        const newPost = (await Post.create({ title, content, username: context.user._id }));
+
+
+        const user = await User.findById(context.user._id);
+
+        if (!user) {
+          throw new Error("User not found");
+        }
+
+        console.log(user);
+
+
+
+        user.posts.push(newPost._id);
+        await user.save();
+
+        return newPost;
+      } catch (error) {
+        console.error(error);
+        throw new Error("Internal Server Error");
       }
+    },
 
-      if (post.username !== context.user._id.toString()) {
-        throw new Error('Unauthorized: User is not the owner of the post');
+    updatePost: async (_, { id, title, content }, context) => {
+      try {
+
+        if (!context.user) {
+          throw new Error('User not authenticated');
+        }
+
+        const post = await Post.findById(id);
+
+        if (!post) {
+          throw new Error('Post not found');
+        }
+
+        if (post.username.toString() !== context.user._id.toString()) {
+          throw new Error('Unauthorized: User is not the owner of the post');
+        }
+
+        post.title = title;
+        post.content = content;
+        await post.save();
+
+        return post;
+      } catch (error) {
+        console.error(error);
+        throw new Error('Error updating post');
       }
-
-      post.title = title;
-      post.content = content;
-      await post.save();
-
-      return post;
-    } catch (error) {
-      console.error(error);
-      throw new Error('Error updating post');
-    }
-  },
+    },
 
 
     removeUser: async (parent, { userId }) => {
       return User.findOneAndDelete({ _id: userId });
     },
 
-      removePost: async (parent, { postId }) => {
-        const deletedPost = await Post.findByIdAndDelete(postId);
+    removePost: async (parent, { postId }) => {
+      const deletedPost = await Post.findByIdAndDelete(postId);
 
-        if (!deletedPost) {
-          throw new Error("Post not found");
-        }
+      if (!deletedPost) {
+        throw new Error("Post not found");
+      }
 
-        const user = await User.findById(deletedPost.user);
+      const user = await User.findById(deletedPost.username);
 
-        if (!user) {
-          throw new Error("Internal Server Error");
-        }
+      if (!user) {
+        throw new Error("Internal Server Error");
+      }
 
-        user.posts.pull(postId);
-        await user.save();
+      user.posts.pull(postId);
+      await user.save();
 
-        return deletedPost;
-      },
+      return deletedPost;
+    },
   },
 };
 

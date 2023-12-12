@@ -1,94 +1,70 @@
-import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
-import { GET_USER_POSTS, GET_POST } from '../utils/queries';
+import { GET_USER_POSTS } from '../utils/queries';
 import { UPDATE_POST, DELETE_POST } from '../utils/mutations';
 
-export default function EditPost() {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [redirect, setRedirect] = useState(false);
-  const [posts, setPosts] = useState([]); // Add this line
+const EditPost = () => {
+  const { loading, error, data } = useQuery(GET_USER_POSTS);
+  const [updatePost] = useMutation(UPDATE_POST);
+  const [deletePost] = useMutation(DELETE_POST);
 
-  const { loading: userPostsLoading, error: userPostsError, data: userPostsData } = useQuery(GET_USER_POSTS);
-  const { loading: postLoading, error: postError, data: postData } = useQuery(GET_POST, {
-    variables: { postId: id },
-    fetchPolicy: 'cache-and-network',
+  const [editedPost, setEditedPost] = useState({
+    id: '',
+    title: '',
+    content: '',
   });
 
-  const [updatePost] = useMutation(UPDATE_POST, {
-    onCompleted: () => setRedirect(true),
-  });
+  const handleEdit = async (postId, title, content) => {
+    setEditedPost({ id: postId, title, content });
 
-  const [deletePost] = useMutation(DELETE_POST, {
-    onCompleted: () => setRedirect(true),
-  });
-
-  useEffect(() => {
-    if (!userPostsLoading && !userPostsError && userPostsData) {
-      const posts = userPostsData.getUserPosts;
-      console.log(posts);
-      //setPosts(posts);
+    // Update the post using the mutation
+    try {
+      await updatePost({
+        variables: {
+          id: postId,
+          title,
+          content,
+        },
+        refetchQueries: [{ query: GET_USER_POSTS }],
+      });
+    } catch (error) {
+      console.error(error);
     }
-  }, [userPostsLoading, userPostsError, userPostsData]);
-
-  useEffect(() => {
-    if (!postLoading && !postError && postData && postData.getPostById) {
-      const postInfo = postData.getPostById;
-      setTitle(postInfo.title);
-      setContent(postInfo.content);
-    }
-  }, [postLoading, postError, postData]);
-
-  const handleUpdatePost = async (ev) => {
-    ev.preventDefault();
-
-    await updatePost({
-      variables: {
-        id,
-        title,
-        content,
-      },
-    });
   };
 
-  const handleDeletePost = async () => {
-    await deletePost({
-      variables: {
-        id,
-      },
-    });
+  const handleDelete = async postId => {
+    // Delete the post using the mutation
+    try {
+      await deletePost({
+        variables: { postId },
+        refetchQueries: [{ query: GET_USER_POSTS }],
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  if (redirect) {
-    return <navigate to={`/post/${id}`} />;
-  }
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
+  const userPosts = data.getUserPosts; // Fix: Use data.getUserPosts
 
   return (
-    <form onSubmit={handleUpdatePost}>
-      {/* Input fields and Editor component */}
-
-      <div>
-        <h2>All User Posts</h2>
-        <ul>
-          {posts.map(post => (
-            <li key={post._id}>
-              <h3>{post.title}</h3>
-              <p>{post.content}</p>
-            </li>
-          ))}
-        </ul>
-        {/* Rest of your component */}
-      </div>
-      <button type="submit" style={{ marginTop: '5px' }}>
-        Update post
-      </button>
-      <button type="button" onClick={handleDeletePost} style={{ marginTop: '5px', marginLeft: '5px' }}>
-        Delete post
-      </button>
-    </form>
+    <div>
+      <h2>User Posts</h2>
+      {userPosts.map(post => (
+        <div key={post._id}>
+          <h3>{post.title}</h3>
+          <p>{post.content}</p>
+          <p>Username: {post.username.username}</p>
+          <button onClick={() => handleEdit(post._id, post.title, post.content)}>
+            Edit
+          </button>
+          <button onClick={() => handleDelete(post._id)}>Delete</button>
+        </div>
+      ))}
+    </div>
   );
-}
+};
 
+export default EditPost;
