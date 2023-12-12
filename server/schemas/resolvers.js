@@ -9,7 +9,7 @@ const resolvers = {
     },
 
     getUserById: async (parent, args, context) => {
-      return User.findOne({ _id: context.user._id }).populate('posts');;
+      return User.findOne({ _id: context.user._id }).populate('posts');
     },
 
     getAllPosts: async () => {
