@@ -50,7 +50,7 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/create-post" element={<CreatePost />} />
-          <Route path="/edit/:id" element={<EditPost />} />
+          <Route path="/edit-post" element={<EditPost />} />
           <Route path="/post" element={<PostPage />} />
           <Route path="/logout" element={<Logout />} />
         </Routes>

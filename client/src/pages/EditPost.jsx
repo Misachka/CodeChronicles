@@ -1,77 +1,94 @@
-import {useEffect, useState} from "react";
-import {Navigate, useParams} from "react-router-dom";
-import Editor from "../components/Editor";
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useQuery, useMutation } from '@apollo/client';
+import { GET_USER_POSTS, GET_POST } from '../utils/queries';
+import { UPDATE_POST, DELETE_POST } from '../utils/mutations';
 
 export default function EditPost() {
-  const {id} = useParams();
-  const [title,setTitle] = useState('');
-  const [summary,setSummary] = useState('');
-  const [content,setContent] = useState('');
-  const [files, setFiles] = useState('');
-  const [redirect,setRedirect] = useState(false);
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [redirect, setRedirect] = useState(false);
+  const [posts, setPosts] = useState([]); // Add this line
+
+  const { loading: userPostsLoading, error: userPostsError, data: userPostsData } = useQuery(GET_USER_POSTS);
+  const { loading: postLoading, error: postError, data: postData } = useQuery(GET_POST, {
+    variables: { postId: id },
+    fetchPolicy: 'cache-and-network',
+  });
+
+  const [updatePost] = useMutation(UPDATE_POST, {
+    onCompleted: () => setRedirect(true),
+  });
+
+  const [deletePost] = useMutation(DELETE_POST, {
+    onCompleted: () => setRedirect(true),
+  });
 
   useEffect(() => {
-    fetch('http://localhost:4000/post/'+id)
-      .then(response => {
-        response.json().then(postInfo => {
-          setTitle(postInfo.title);
-          setContent(postInfo.content);
-          setSummary(postInfo.summary);
-        });
-      });
-  }, []);
+    if (!userPostsLoading && !userPostsError && userPostsData) {
+      const posts = userPostsData.getPostsByUser;
+      console.log(posts);
+      setPosts(posts);
+    }
+  }, [userPostsLoading, userPostsError, userPostsData]);
 
-  async function updatePost(ev) {
+  useEffect(() => {
+    if (!postLoading && !postError && postData && postData.getPostById) {
+      const postInfo = postData.getPostById;
+      setTitle(postInfo.title);
+      setContent(postInfo.content);
+    }
+  }, [postLoading, postError, postData]);
+
+  const handleUpdatePost = async (ev) => {
     ev.preventDefault();
-    const data = new FormData();
-    data.set('title', title);
-    data.set('summary', summary);
-    data.set('content', content);
-    data.set('id', id);
-    if (files?.[0]) {
-      data.set('file', files?.[0]);
-    }
-    const response = await fetch('http://localhost:4000/post', {
-      method: 'PUT',
-      body: data,
-      credentials: 'include',
+
+    await updatePost({
+      variables: {
+        id,
+        title,
+        content,
+      },
     });
-    if (response.ok) {
-      setRedirect(true);
-    }
-  }
-// code for deletion of posts
-  async function deletePost() {
-    const response = await fetch(`http://localhost:4000/post/${id}`, {
-      method: "DELETE",
-      credentials: "include",
+  };
+
+  const handleDeletePost = async () => {
+    await deletePost({
+      variables: {
+        id,
+      },
     });
-    if (response.ok) {
-      setRedirect(true);
-    }
-  }
+  };
 
   if (redirect) {
-    return <Navigate to={'/post/'+id} />
+    return <navigate to={`/post/${id}`} />;
   }
 
   return (
-    <form onSubmit={updatePost}>
-      <input type="title"
-             placeholder={'Title'}
-             value={title}
-             onChange={ev => setTitle(ev.target.value)} />
-      <input type="summary"
-             placeholder={'Summary'}
-             value={summary}
-             onChange={ev => setSummary(ev.target.value)} />
-      <input type="file"
-             onChange={ev => setFiles(ev.target.files)} />
-      <Editor onChange={setContent} value={content} />
-      <button style={{marginTop:'5px'}}>Update post</button>
-      <button type="button" onClick={deletePost} style={{ marginTop: "5px", marginLeft: "5px" }}>
+    <form onSubmit={handleUpdatePost}>
+      {/* Input fields and Editor component */}
+
+      <div>
+        <h2>All User Posts</h2>
+        <ul>
+          {posts.map(post => (
+            <li key={post._id}>
+              <h3>{post.title}</h3>
+              <p>{post.content}</p>
+            </li>
+          ))}
+        </ul>
+        {/* Rest of your component */}
+      </div>
+      <button type="submit" style={{ marginTop: '5px' }}>
+        Update post
+      </button>
+      <button type="button" onClick={handleDeletePost} style={{ marginTop: '5px', marginLeft: '5px' }}>
         Delete post
       </button>
     </form>
   );
 }
+
