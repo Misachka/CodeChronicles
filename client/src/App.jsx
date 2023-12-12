@@ -15,7 +15,7 @@ import Layout from "./pages/Layout";
 import CreatePost from "./components/CreatePost";
 import RegisterPage from "./pages/RegisterPage";
 import EditPost from "./pages/EditPost";
-import PostPage from "./pages/PostPage";
+// import PostPage from "./pages/PostPage";
 import Logout from "./components/Logout";
 import Header from "./components/common/header/Header";
 import Editing from "./pages/Editing";
@@ -53,7 +53,7 @@ function App() {
           <Route path="/create-post" element={<CreatePost />} />
           <Route path="/edit-post" element={<EditPost />} />
           <Route path="editing/:postId" element={<Editing />} />
-          <Route path="/post" element={<PostPage />} />
+          {/* <Route path="/post" element={<PostPage />} /> */}
           <Route path="/logout" element={<Logout />} />
         </Routes>
       </ApolloProvider>
