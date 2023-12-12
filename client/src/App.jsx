@@ -23,6 +23,7 @@ import Editing from "./pages/Editing";
 // Create an ApolloClient instance
 const httpLink = createHttpLink({
   uri: "http://localhost:3001/graphql", // Replace with your GraphQL endpoint
+  credentials: true,
 });
 
 const authLink = setContext((_, { headers }) => {
