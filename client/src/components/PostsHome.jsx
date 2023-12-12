@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { GET_ALL_POSTS } from "../utils/queries";
 
+
 function PostList() {
   const { loading, data } = useQuery(GET_ALL_POSTS);
 
@@ -13,15 +14,17 @@ function PostList() {
   }
 
   return (
-    <ul>
+    <div className="post-list"> 
       {data.getAllPosts.map((post) => (
-        <li key={post._id}>
-          <h3>{post.title}</h3>
-          <p>{post.content}</p>
-          <p>Author: {post.username.username}</p>
-        </li>
+        <div key={post._id} className="homePost"> 
+          <h3 className="post-title">{post.title}</h3>
+          <div className="post-content">
+            <p>{post.content}</p>
+          </div>
+          <p className="post-author">Author: {post.username.username}</p>
+        </div>
       ))}
-    </ul>
+    </div>
   );
 }
 
