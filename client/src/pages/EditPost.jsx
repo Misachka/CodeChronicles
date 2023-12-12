@@ -30,6 +30,7 @@ const EditPost = () => {
         },
         refetchQueries: [{ query: GET_USER_POSTS }],
       });
+      
     } catch (error) {
       console.error(error);
     }
@@ -45,6 +46,8 @@ const EditPost = () => {
         variables: { postId },
         refetchQueries: [{ query: GET_USER_POSTS }],
       });
+      alert("Post sucessfully deleted");
+      navigate("/edit-post")
     } catch (error) {
       console.error(error);
     }
