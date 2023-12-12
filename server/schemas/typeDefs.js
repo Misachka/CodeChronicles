@@ -26,6 +26,7 @@ const typeDefs = gql`
       getAllUsers: [User]
       getPostById(postId: ID!): Post
       getAllPosts: [Post]
+      getUserPosts: [Post]
   }
     
 
@@ -34,6 +35,7 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
 
     addPost(title: String!, content: String!): Post
+    updatePost(id: ID!, title: String!, content: String!): Post
     removeUser(userId: ID!): User
     removePost(postId: ID!): Post
   }
