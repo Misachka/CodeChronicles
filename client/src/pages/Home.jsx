@@ -4,17 +4,18 @@ import { UserContext } from "../store/UserContext";
 import { useQuery } from "@apollo/client";
 import { GET_ALL_POSTS } from "../utils/queries";
 import backgroundImage from "../assets/backgroundImage.jpg";
+import PostList from "../components/PostsHome";
+
 
 function Home(props) {
   const { setUserInfo, userInfo } = useContext(UserContext);
 
-  const result = useQuery(GET_ALL_POSTS);
-  const { data, fetching, error } = result;
+  // const { data, fetching, error } = result;
 
-  if (fetching) return "Loading...";
-  if (error) return <pre>{error.message}</pre>;
+  // if (fetching) return "Loading...";
+  // if (error) return <pre>{error.message}</pre>;
 
-  console.log(data)
+  // console.log(data)
 
   function logout() {
     setUserInfo(null);
@@ -44,29 +45,5 @@ function Home(props) {
   );
 }
 
-// Define PostList component outside of the Home component
-function PostList() {
-  const { loading, data } = useQuery(GET_ALL_POSTS);
-
-  if (loading) {
-    return <p>Loading Posts...</p>;
-  }
-
-  if (!data || !data.getAllPosts) {
-    return <p>No posts at this moment...</p>;
-  }
-
-  return (
-    <ul>
-      {data.getAllPosts.map((post) => (
-        <li key={post._id}>
-          <h3>{post.title}</h3>
-          <p>{post.content}</p>
-          <p>Author: {post.username.username}</p>
-        </li>
-      ))}
-    </ul>
-  );
-}
 
 export default Home; // Export the Home component as the default export
