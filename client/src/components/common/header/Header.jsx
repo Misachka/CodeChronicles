@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import Home from "../../../pages/Home";
 import Auth from "../../../utils/auth";
 import { useNavigate } from "react-router-dom";
+import { Button } from "@material-tailwind/react";
+
+
 
 function Header() {
   const navigate = useNavigate();
@@ -20,7 +23,11 @@ function Header() {
       <nav>
         {Auth.loggedIn() ? (
           <>
-            <Link to="/">Home</Link>
+             <Link to="/" className="rounded-full">
+              <Button color="blue" ripple="light" size="regular">
+                Home
+              </Button>
+            </Link>
             <Link to="/create">Create new post</Link>
             <Link to="/edit-post">EditPost</Link>
             <a onClick={handleLogOut}>
@@ -29,9 +36,21 @@ function Header() {
           </>
         ) : (
           <>
-            <Link to="/">Home</Link>
-            <Link to="/login">Login</Link>
-            <Link to="/register">Register</Link>
+            <Link to="/">
+              <Button  className="rounded-full" color="blue" ripple="light" size="regular">
+                Home
+              </Button>
+            </Link>
+            <Link to="/login" className="rounded-full">
+              <Button color="blue" ripple="light" size="regular">
+                Login
+              </Button>
+            </Link>
+            <Link to="/register" className="rounded-full">
+              <Button color="blue" ripple="light" size="regular">
+                Register
+              </Button>
+            </Link>
           </>
         )}
       </nav>
@@ -40,3 +59,5 @@ function Header() {
 }
 
 export default Header;
+
+
