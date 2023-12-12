@@ -57,3 +57,15 @@ export const GET_ALL_POSTS = gql`
     }
   }
 `;
+
+export const GET_USER_POSTS = gql`
+query getUserPosts {
+  _id
+  title
+  content
+  username {
+    _id
+    username
+  }
+}
+`
