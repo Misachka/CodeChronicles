@@ -26,7 +26,7 @@ function Header() {
                 Home
               </Button>
             </Link>
-            <Link to="/create" className="rounded-full">
+            <Link to="/create-post" className="rounded-full">
               <Button color="blue" ripple="light" size="regular">
                 CreatePost
               </Button>
