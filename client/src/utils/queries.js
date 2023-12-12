@@ -31,17 +31,17 @@ export const GET_ALL_USERS = gql`
 `;
 
 export const GET_POST = gql`
-  query GetPost {
-    getPostById {
+query GetPost($postId: ID!) {
+  getPostById(postId: $postId) {
+    _id
+    title
+    content
+    username {
       _id
-      title
-      content
-      username {
-        _id
-        username
-      }
+      username
     }
   }
+}
 `;
 
 export const GET_ALL_POSTS = gql`

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
+import { useNavigate } from 'react-router-dom';
 import { GET_USER_POSTS } from '../utils/queries';
 import { UPDATE_POST, DELETE_POST } from '../utils/mutations';
 
@@ -13,6 +14,8 @@ const EditPost = () => {
     title: '',
     content: '',
   });
+
+  const navigate = useNavigate(); // Initialize useHistory
 
   const handleEdit = async (postId, title, content) => {
     setEditedPost({ id: postId, title, content });
@@ -30,6 +33,9 @@ const EditPost = () => {
     } catch (error) {
       console.error(error);
     }
+
+    // Redirect to the editing post page
+    navigate(`/editing/${postId}`);
   };
 
   const handleDelete = async postId => {

@@ -18,6 +18,7 @@ import EditPost from "./pages/EditPost";
 import PostPage from "./pages/PostPage";
 import Logout from "./components/Logout";
 import Header from "./components/common/header/Header";
+import Editing from "./pages/Editing";
 
 // Create an ApolloClient instance
 const httpLink = createHttpLink({
@@ -51,6 +52,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/create-post" element={<CreatePost />} />
           <Route path="/edit-post" element={<EditPost />} />
+          <Route path="editing/:postId" element={<Editing />} />
           <Route path="/post" element={<PostPage />} />
           <Route path="/logout" element={<Logout />} />
         </Routes>
