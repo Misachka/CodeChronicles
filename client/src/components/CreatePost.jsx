@@ -1,15 +1,17 @@
 import React, { useState } from "react";
-import { Navigate } from "react-router-dom";
-import Editor from "./Editor";
+// import { Navigate } from "react-router-dom";
+// import Editor from "./Editor";
 import { useMutation } from "@apollo/client";
 import { CREATE_POST } from "../utils/mutations";
+import { useNavigate } from "react-router-dom";
 
 export default function CreatePost() {
   const [title, setTitle] = useState('');
   // const [summary, setSummary] = useState('');
   const [content, setContent] = useState('');
   // const [files, setFiles] = useState('');
-  const [redirect, setRedirect] = useState(false);
+  // const [redirect, setRedirect] = useState(false);
+  const navigate = useNavigate();
 
   const [createPostMutation, { loading, error }] = useMutation(CREATE_POST);
 
@@ -25,18 +27,16 @@ export default function CreatePost() {
           // file: files[0],
         },
       });
+      alert("Post sucessfully created!");
+      navigate("/")
 
-      if (data.createPost) {
-        setRedirect(true);
-      }
+     
     } catch (err) {
       console.error('Error creating post:', err);
+      alert("Error creating a post, please try again");
     }
   }
 
-  if (redirect) {
-    return <Navigate to={'/'} />;
-  }
 
   return (
     <form onSubmit={createNewPost} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
