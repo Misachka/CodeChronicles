@@ -22,23 +22,23 @@ function Header() {
         {Auth.loggedIn() ? (
           <>
             <Link to="/" className="rounded-full">
-              <Button color="blue" ripple="light" size="regular">
+              <Button color="blue" size="sm">
                 Home
               </Button>
             </Link>
             <Link to="/create-post" className="rounded-full">
-              <Button color="blue" ripple="light" size="regular">
+              <Button color="blue" size="sm">
                 CreatePost
               </Button>
             </Link>
 
             <Link to="/edit-post" className="rounded-full">
-              <Button color="blue" ripple="light" size="regular">
+              <Button color="blue" size="sm">
                 EditPost
               </Button>
             </Link>
             <a onClick={handleLogOut} className="rounded-full">
-              <Button color="blue" ripple="light" size="regular">
+              <Button color="blue" size="sm">
                 Logout ({Auth.getProfile().data.username.display})
               </Button>
             </a>
@@ -49,19 +49,18 @@ function Header() {
               <Button
                 className="rounded-full"
                 color="blue"
-                ripple="light"
-                size="regular"
+                size="sm"
               >
                 Home
               </Button>
             </Link>
             <Link to="/login" className="rounded-full">
-              <Button color="blue" ripple="light" size="regular">
+              <Button color="blue" size="sm">
                 Login
               </Button>
             </Link>
             <Link to="/register" className="rounded-full">
-              <Button color="blue" ripple="light" size="regular">
+              <Button color="blue" size="sm">
                 Register
               </Button>
             </Link>
