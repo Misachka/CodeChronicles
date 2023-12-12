@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
-import Editor from '../components/Editor';
 import { GET_USER_POSTS, GET_POST } from '../utils/queries';
 import { UPDATE_POST, DELETE_POST } from '../utils/mutations';
 
@@ -11,6 +10,7 @@ export default function EditPost() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [redirect, setRedirect] = useState(false);
+  const [posts, setPosts] = useState([]); // Add this line
 
   const { loading: userPostsLoading, error: userPostsError, data: userPostsData } = useQuery(GET_USER_POSTS);
   const { loading: postLoading, error: postError, data: postData } = useQuery(GET_POST, {
@@ -31,7 +31,6 @@ export default function EditPost() {
       const posts = userPostsData.getPostsByUser;
       console.log(posts);
       setPosts(posts);
-
     }
   }, [userPostsLoading, userPostsError, userPostsData]);
 
@@ -63,9 +62,9 @@ export default function EditPost() {
     });
   };
 
-  // if (redirect) {
-  //   return <navigate to={`/post/${id}`} />;
-  // }
+  if (redirect) {
+    return <navigate to={`/post/${id}`} />;
+  }
 
   return (
     <form onSubmit={handleUpdatePost}>
@@ -92,3 +91,4 @@ export default function EditPost() {
     </form>
   );
 }
+

@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { UserContext } from "../store/UserContext";
-import { useQuery } from "@apollo/client";
-import { GET_ALL_POSTS } from "../utils/queries";
+// import { useQuery } from "@apollo/client";
+// import { GET_ALL_POSTS } from "../utils/queries";
 import backgroundImage from "../assets/backgroundImage.jpg";
 import PostList from "../components/PostsHome";
 
