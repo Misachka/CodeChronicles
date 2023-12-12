@@ -22,8 +22,8 @@ import Editing from "./pages/Editing";
 
 // Create an ApolloClient instance
 const httpLink = createHttpLink({
-  uri: "http://localhost:3001/graphql", // Replace with your GraphQL endpoint
-  // credentials: true,
+  uri: "https://codechronicles2.onrender.com/graphql", // Replace with your GraphQL endpoint
+  credentials: false,
 });
 
 const authLink = setContext((_, { headers }) => {
