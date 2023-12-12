@@ -1,3 +1,4 @@
+
 *{
   box-sizing: border-box;
 }
@@ -21,6 +22,9 @@ main{
   margin: 0 auto;
 }
 header{
+  position: sticky;
+  top:0;
+  z-index:100px;
   display:flex;
   justify-content:space-between;
   margin-top: 20px;
@@ -41,7 +45,46 @@ header nav{
   gap: 24px;
   margin-right: 20px;
 }
+.postMain {
+  padding-bottom: 20px;
+  max-width: 940px;
+  margin: 0 auto;
+  overflow: hidden; 
 
+}
+
+
+.post-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 20px; 
+}
+
+.homePost {
+  background-color: rgb(107, 1, 160); 
+  color: white; 
+  padding: 5px; 
+  border-radius: 10px; 
+  display: flex;
+  flex-direction: column;
+  height:200px;
+  overflow:auto;
+  width: 400px;
+}
+
+.post-title,
+.post-author {
+  margin-bottom: 10px;
+  color: rgb(45, 167, 227); 
+  
+}
+
+.post-content {
+  background-color: rgba(255, 255, 255, 0.585);
+  padding: 8px; 
+  border-radius: 5px; 
+  
+}
 div.post{
   display: grid;
   grid-template-columns: 1fr;
@@ -162,5 +205,3 @@ div.post-page a.edit-btn{
 a svg{
   height:20px;
 }
-
-

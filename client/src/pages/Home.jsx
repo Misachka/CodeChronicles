@@ -28,7 +28,7 @@ function Home(props) {
         backgroundSize: "cover",
         backgroundPosition: "center",
         width: "100vw",
-        height: "100vh",
+    
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -36,7 +36,7 @@ function Home(props) {
         color: "white", // Text color for visibility on the image
       }}
     >
-      <div>
+      <div className="postMain">
         <h2>All Posts</h2>
         {/* PostList component here */}
         <PostList />
