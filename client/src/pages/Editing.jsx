@@ -4,14 +4,17 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { GET_POST } from '../utils/queries';
 import { UPDATE_POST } from '../utils/mutations';
 
+//function to edit posts
 const Editing = () => {
-  const { postId } = useParams();
+  const { postId } = useParams(); //post ID from URL parameters
   const navigate = useNavigate();
+
+  // Fetch post data
   const { loading, error, data } = useQuery(GET_POST, {
     variables: { postId },
   });
 
-  const [updatePost] = useMutation(UPDATE_POST);
+  const [updatePost] = useMutation(UPDATE_POST); //use mutation to update post
 
   const [editedPost, setEditedPost] = useState({
     title: '',
@@ -20,15 +23,16 @@ const Editing = () => {
 
   useEffect(() => {
     if (data && data.getPostById) {
-        console.log('Post data:', data.getPostById);
+        console.log('Post data:', data.getPostById); // Extract title and content
       const { title, content } = data.getPostById;
       setEditedPost({
-        title: title || '', // Set default to an empty string if title is null or undefined
-        content: content || '', // Set default to an empty string if content is null or undefined
+        title: title || '', 
+        content: content || '', 
       });
     }
   }, [data]);
 
+  //function to update posts
   const handleUpdatePost = async () => {
     try {
       await updatePost({
@@ -48,6 +52,7 @@ const Editing = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
+  //new values are taken in and then updated
   return (
     <div className="editing-container">
       <h2 className="edit-post-title">Edit Post</h2>
