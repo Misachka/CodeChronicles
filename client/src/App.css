@@ -11,7 +11,9 @@
   }
 body{
   color: #3c0474d7;
-  background-color: rgba(42, 138, 235, 0.657);
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
 }
 img{
   max-width: none;
