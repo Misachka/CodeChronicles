@@ -19,6 +19,8 @@ import EditPost from "./pages/EditPost";
 import Logout from "./components/Logout";
 import Header from "./components/common/header/Header";
 import Editing from "./pages/Editing";
+import Footer from "./components/Footer";
+
 
 // Create an ApolloClient instance
 const httpLink = createHttpLink({
@@ -60,6 +62,7 @@ function App() {
         </Routes>
       </ApolloProvider>
     </UserContextProvider>
+    <Footer />
     </>
     
   );
