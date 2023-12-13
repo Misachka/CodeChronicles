@@ -312,6 +312,7 @@ a svg{
   /* Center the button */
   display: block;
   margin: 0 auto;
+  text-decoration: none !important;
   
   /* Apply rounded corners */
   border-radius: 0.50rem;
@@ -324,6 +325,7 @@ a svg{
   font-size: 1rem;
   border: none;
   cursor: pointer;
+ 
   
   /* Hover effect */
   transition: background-color 0.3s ease;
@@ -432,6 +434,38 @@ a svg{
   background-color: #c386cac9;
   border-radius: 8px;
   padding: 16px;
+  margin-bottom: 16px;
+}
+.editing-container {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: rgb(247, 243, 243);
+}
+
+.edit-post-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-decoration: underline;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  max-width: 600px;
+}
+
+.edit-form label {
+  margin-bottom: 8px;
+}
+
+.edit-form input,
+.edit-form textarea {
+  padding: 8px;
   margin-bottom: 16px;
 }
 
