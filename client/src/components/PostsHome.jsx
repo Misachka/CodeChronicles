@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { GET_ALL_POSTS } from "../utils/queries";
 
-
+//retrieves all posts using Query
 function PostList() {
   const { loading, data } = useQuery(GET_ALL_POSTS);
 
@@ -13,6 +13,7 @@ function PostList() {
     return <p>No posts at this moment...</p>;
   }
 
+  //loops through posts to show them in cards
   return (
     <div className="post-list"> 
       {data.getAllPosts.map((post) => (

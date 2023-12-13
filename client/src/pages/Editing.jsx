@@ -14,7 +14,7 @@ const Editing = () => {
     variables: { postId },
   });
 
-  const [updatePost] = useMutation(UPDATE_POST); 
+  const [updatePost] = useMutation(UPDATE_POST); //use mutation to update post
 
   const [editedPost, setEditedPost] = useState({
     title: '',
@@ -32,6 +32,7 @@ const Editing = () => {
     }
   }, [data]);
 
+  //function to update posts
   const handleUpdatePost = async () => {
     try {
       await updatePost({
@@ -51,6 +52,7 @@ const Editing = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
+  //new values are taken in and then updated
   return (
     <div>
       <h2 id="edit-post">Edit Post</h2>

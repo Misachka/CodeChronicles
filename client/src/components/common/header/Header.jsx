@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Home from "../../../pages/Home";
 import Auth from "../../../utils/auth";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@material-tailwind/react";
@@ -13,6 +12,7 @@ function Header() {
     navigate("/");
   };
 
+  //links to pages. More links options once user is logged in
   return (
     <header>
        <style>
