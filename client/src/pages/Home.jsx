@@ -15,9 +15,6 @@ function Home(props) {
   return (
     <div
       style={{
-        // backgroundImage: `url(${backgroundImage})`, 
-        // backgroundSize: "cover",
-        // backgroundPosition: "center",
         width: "100%",
         paddingLeft: "20px",
         paddingRight: "20px",
