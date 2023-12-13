@@ -50,7 +50,7 @@ const Editing = () => {
 
   return (
     <div>
-      <h2>Edit Post</h2>
+      <h2 id="edit-post">Edit Post</h2>
       <form>
         <label htmlFor="title">Title:</label>
         <input
@@ -67,7 +67,7 @@ const Editing = () => {
           onChange={(e) => setEditedPost({ ...editedPost, content: e.target.value })}
         />
 
-        <button type="button" onClick={handleUpdatePost}>
+        <button id="update-post-btn" type="button" onClick={handleUpdatePost}>
           Update Post
         </button>
       </form>
