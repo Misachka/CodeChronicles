@@ -74,18 +74,7 @@ export default function CreatePost() {
       />
   
       {/* Button for Submission */}
-      <button 
-        style={{
-          padding: '8px 16px',
-          fontSize: '1em',
-          backgroundColor: '#007bff',
-          color: 'white',
-          border: 'none',
-          borderRadius: '4px',
-          cursor: 'pointer',
-          width: '20%',
-          borderRadius: '10px',
-        }}
+      <button id="create-btn"
         disabled={loading}
       >
         {loading ? 'Creating post...' : 'Create post'}
