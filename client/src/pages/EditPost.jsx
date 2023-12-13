@@ -59,8 +59,6 @@ const EditPost = () => {
 
   const userPosts = data.getUserPosts; // Fix: Use data.getUserPosts
 
-
-  const userPosts = data.getUserPosts; 
 //loop through user's posts to find the seleted post. On delete, post is deleted, on edit, page redirects to editing page
   return (
     <div className="edit-post-container">
