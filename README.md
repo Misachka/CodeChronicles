@@ -35,6 +35,8 @@ At CodeChronicles, our mission is to provide a vibrant space where individuals p
 
 ## Installation
 
+To just join our tech community simply visit our [site](https://codechronicles2.onrender.com/)
+
 To use application locally:
 
 ⚙️ Clone the repository: git clone https://github.com/Misachka/CodeChronicles

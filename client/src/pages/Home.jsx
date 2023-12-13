@@ -1,21 +1,12 @@
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import { useContext, useEffect } from "react";
 import { UserContext } from "../store/UserContext";
-// import { useQuery } from "@apollo/client";
-// import { GET_ALL_POSTS } from "../utils/queries";
 import backgroundImage from "../assets/backgroundImage.jpg";
 import PostList from "../components/PostsHome";
 
 
 function Home(props) {
   const { setUserInfo, userInfo } = useContext(UserContext);
-
-  // const { data, fetching, error } = result;
-
-  // if (fetching) return "Loading...";
-  // if (error) return <pre>{error.message}</pre>;
-
-  // console.log(data)
 
   function logout() {
     setUserInfo(null);
