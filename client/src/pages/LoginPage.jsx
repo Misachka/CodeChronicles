@@ -50,7 +50,7 @@ export default function LoginPage() {
         value={password}
         onChange={(ev) => setPassword(ev.target.value)}
       />
-      <button type="submit" disabled={loading}>
+      <button id="login-btn" type="submit" disabled={loading}>
         {loading ? 'Logging in...' : 'Login'}
       </button>
       {error && <p>Error: Incorrect Password</p>}

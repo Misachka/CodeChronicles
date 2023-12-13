@@ -57,7 +57,7 @@ export default function RegisterPage() {
         value={email}
         onChange={(ev) => setEmail(ev.target.value)}
       />
-      <button type="submit" disabled={loading}>
+      <button id="register-btn" type="submit" disabled={loading}>
         {loading ? "Registering..." : "Register"}
       </button>
       {error && <p>Error: {error.message}</p>}
