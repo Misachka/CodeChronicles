@@ -266,6 +266,54 @@ div.post-page a.edit-btn{
 a svg{
   height:20px;
 }
+#login-btn {
+  /* Center the button */
+  display: block;
+  margin: 0 auto;
+  
+  /* Apply rounded corners */
+  border-radius: 0.50rem;
+  
+  /* Additional styles for button appearance */
+  /* Add your desired background, text color, padding, etc. */
+  background-color: #3498db;
+  color: white;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  
+  /* Hover effect */
+  transition: background-color 0.3s ease;
+}
+#register-btn {
+  /* Center the button */
+  display: block;
+  margin: 0 auto;
+  
+  /* Apply rounded corners */
+  border-radius: 0.50rem;
+  
+  /* Additional styles for button appearance */
+  /* Add your desired background, text color, padding, etc. */
+  background-color: #3498db;
+  color: white;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  
+  /* Hover effect */
+  transition: background-color 0.3s ease;
+}
+
+#register-btn:hover {
+  background-color: #2980b9;
+}
+
+#register-btn:hover {
+  background-color: #2980b9;
+}
 
 .footer {
   text-align: center;
