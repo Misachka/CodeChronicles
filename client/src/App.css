@@ -30,7 +30,8 @@ header{
   margin-top: 20px;
   margin-bottom: 50px;
   align-items: center;
-  margin-left: 20px;
+  /* margin-left: 20px; */
+  width: 100%;
 }
 header a{
   text-decoration:none;
@@ -54,10 +55,29 @@ header nav{
 
 }
 
+/* Define styles for smaller screens using media queries */
+@media screen and (max-width: 768px) {
+  /* Adjustments for smaller screens */
+
+  header {
+    flex-direction: column;
+    /* display: unset; */
+  }
+
+  header nav {
+    padding-bottom: 2%;
+  }
+
+  .postMain {
+    padding-bottom: 2%;
+  }
+
+  /* You can add more media queries and adjust styles accordingly */
+}
 
 .post-list {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); 
+  /* grid-template-columns: repeat(2, 1fr);  */
   gap: 20px; 
 }
 
@@ -68,9 +88,20 @@ header nav{
   border-radius: 10px; 
   display: flex;
   flex-direction: column;
-  height:200px;
+  /* height:200px; */
   overflow:auto;
-  width: 400px;
+  min-width: 100%;
+  max-width: 100%
+
+}
+
+.userPosts {
+  padding: 20px;
+  
+}
+.yourpost{
+  text-align: center;
+  text-decoration: underline;
 }
 
 .post-title,
@@ -146,7 +177,22 @@ input{
   padding: 10px 0;
   margin-left: 10px;
   margin-right: 10px;
-} 
+}
+.roundedButton {
+  border-radius: 5px; /* Adjust the value to change the roundness */
+  padding: 8px 16px; /* Adjust the padding as needed */
+  margin: 4px; /* Add margin as needed */
+  background-color: #3498db; /* Change background color */
+  color: #ffffff; /* Change text color */
+  border: none;
+  cursor: pointer;
+  /* Add any other styles you want for the buttons */
+}
+
+.roundedButton:hover {
+  background-color: #2980b9; /* Change background color on hover */
+}
+
 form.login h1, form.register h1{
   text-align: center;
 }
