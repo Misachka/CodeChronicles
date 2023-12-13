@@ -10,8 +10,8 @@
     text-decoration: underline;
   }
 body{
-  color: #300d98;
-  background-color: rgb(10, 179, 241);
+  color: #3c0474d7;
+  background-color: rgb(67, 117, 203);
 }
 img{
   max-width: none;
@@ -38,7 +38,8 @@ header a{
 }
 header a.logo{
   font-weight: bold;
-  font-size: 2.0rem;
+  font-size: 3.0rem;
+  text-decoration: none;
 }
 header nav{
   display:flex;
@@ -46,8 +47,8 @@ header nav{
   margin-right: 20px;
 }
 .postMain {
-  padding-bottom: 20px;
-  max-width: 940px;
+  padding-bottom: 200px;
+  max-width: 100%;
   margin: 0 auto;
   overflow: hidden; 
 
