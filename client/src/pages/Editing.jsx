@@ -54,9 +54,9 @@ const Editing = () => {
 
   //new values are taken in and then updated
   return (
-    <div>
-      <h2 id="edit-post">Edit Post</h2>
-      <form>
+    <div className="editing-container">
+      <h2 className="edit-post-title">Edit Post</h2>
+      <form className="edit-form">
         <label htmlFor="title">Title:</label>
         <input
           type="text"

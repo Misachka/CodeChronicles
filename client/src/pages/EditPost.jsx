@@ -57,20 +57,21 @@ const EditPost = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
+  const userPosts = data.getUserPosts; // Fix: Use data.getUserPosts
+
+
   const userPosts = data.getUserPosts; 
 //loop through user's posts to find the seleted post. On delete, post is deleted, on edit, page redirects to editing page
   return (
-    <div>
+    <div className="edit-post-container">
       <h2 className='yourpost'>Your Posts</h2>
       {userPosts.map(post => (
-        <div  className='userPosts' key={post._id}>
+        <div className='user-post' key={post._id}>
           <h3>{post.title}</h3>
           <p>{post.content}</p>
           <p>Username: {post.username.username}</p>
-          <button id='edit-btn'  onClick={() => handleEdit(post._id, post.title, post.content)}> 
-            Edit
-          </button><br></br>
-          <button id='delete-btn' onClick={() => handleDelete(post._id)}>Delete</button>
+          <button className='edit-btn' onClick={() => handleEdit(post._id, post.title, post.content)}>Edit</button><br></br>
+          <button className='delete-btn' onClick={() => handleDelete(post._id)}>Delete</button>
         </div>
       ))}
     </div>
