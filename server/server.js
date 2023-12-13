@@ -1,4 +1,3 @@
-//Import neccessary tools 
 require('dotenv').config();
 const express = require('express');
 const { ApolloServer } = require('@apollo/server');
@@ -12,7 +11,6 @@ const db = require('./config/connection');
 const PORT = process.env.PORT || 3001;
 const app = express();
 
-//Prevents CORS from blocking access to page
 const corsOptions = {
   origin: ['http://localhost:3000', 'http://localhost:3001', 'https://codechronicles2.onrender.com'],
   credentials: true,

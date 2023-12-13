@@ -5,18 +5,17 @@ import { GET_USER_POSTS } from '../utils/queries';
 import { UPDATE_POST, DELETE_POST } from '../utils/mutations';
 
 const EditPost = () => {
-  const { loading, error, data } = useQuery(GET_USER_POSTS); //mutation to get user's posts
-  const [updatePost] = useMutation(UPDATE_POST); //mutation to update post
-  const [deletePost] = useMutation(DELETE_POST); //mutation to delete post
+  const { loading, error, data } = useQuery(GET_USER_POSTS);
+  const [updatePost] = useMutation(UPDATE_POST);
+  const [deletePost] = useMutation(DELETE_POST);
 
-  //empty values to accept user inputs
   const [editedPost, setEditedPost] = useState({
     id: '',
     title: '',
     content: '',
   });
 
-  const navigate = useNavigate(); 
+  const navigate = useNavigate(); // Initialize useHistory
 
   const handleEdit = async (postId, title, content) => {
     setEditedPost({ id: postId, title, content });
@@ -29,7 +28,7 @@ const EditPost = () => {
           title,
           content,
         },
-        refetchQueries: [{ query: GET_USER_POSTS }], //get's all user's posts again to show update post
+        refetchQueries: [{ query: GET_USER_POSTS }],
       });
       
     } catch (error) {
@@ -60,8 +59,6 @@ const EditPost = () => {
   const userPosts = data.getUserPosts; // Fix: Use data.getUserPosts
 
 
-  const userPosts = data.getUserPosts; 
-//loop through user's posts to find the seleted post. On delete, post is deleted, on edit, page redirects to editing page
   return (
     <div className="edit-post-container">
       <h2 className='yourpost'>Your Posts</h2>
