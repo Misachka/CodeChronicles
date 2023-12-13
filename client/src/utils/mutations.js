@@ -1,5 +1,7 @@
 import { gql } from '@apollo/client';
 
+//updtes in data client can do which were defined in typeDefs client
+//gets email and password to login user, token for auth
 export const LOGIN = gql`
   mutation login(
     $email: String!, 
@@ -16,6 +18,7 @@ export const LOGIN = gql`
   }
 `;
 
+//creates user, token for auth
 export const ADD_USER  = gql`
   mutation addUser(
     $username: String!
@@ -35,6 +38,7 @@ export const ADD_USER  = gql`
   }
 `;
 
+//Context user info to create post, post creation
 export const CREATE_POST = gql`
   mutation addPost(
     $title: String!
@@ -56,6 +60,7 @@ export const CREATE_POST = gql`
   }
 `;
 
+//context to check if user can update post, update post
 export const UPDATE_POST = gql`
   mutation updatePost(
     $id: ID!, 
@@ -70,6 +75,7 @@ export const UPDATE_POST = gql`
   }
 `;
 
+//deletes post
 export const DELETE_POST = gql`
   mutation removePost($postId: ID!) {
     removePost(postId: $postId) {
