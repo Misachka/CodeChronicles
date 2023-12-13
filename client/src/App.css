@@ -266,3 +266,10 @@ div.post-page a.edit-btn{
 a svg{
   height:20px;
 }
+
+.footer {
+  text-align: center;
+  padding-bottom: 20px;
+  padding-top: 550px;
+  position: sticky;
+}
