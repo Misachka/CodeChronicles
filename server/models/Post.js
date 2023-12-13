@@ -1,6 +1,5 @@
-const { Schema, model } = require('mongoose'); //creates database in mongoDB
+const { Schema, model } = require('mongoose');
 
-//database structure for posts
 const postSchema = new Schema(
     {
 

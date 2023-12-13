@@ -1,7 +1,6 @@
-const { Schema, model } = require('mongoose'); //creates database in mongoDB
-const bcrypt = require('bcrypt'); //hashes password
+const { Schema, model } = require('mongoose');
+const bcrypt = require('bcrypt');
 
-//database structure for users
 const userSchema = new Schema(
     {
         username: {
@@ -26,7 +25,7 @@ const userSchema = new Schema(
 
         posts: [
             {
-                type: Schema.Types.ObjectId, //references post id located in the Post model
+                type: Schema.Types.ObjectId,
                 ref: 'Post',
                 
             }
@@ -34,6 +33,7 @@ const userSchema = new Schema(
         
     },
 
+    //set this to use virtual
     {
         toJSON: {
             virtuals: true,

@@ -6,25 +6,23 @@ import { LOGIN } from '../utils/mutations';
 import { useMutation } from '@apollo/client';
 
 export default function LoginPage() {
-  const [username, setUsername] = useState(''); //empty to accept username input
-  const [password, setPassword] = useState(''); //empty to accept password input
-  const { setUserInfo } = useContext(UserContext); //uses context for auth
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const { setUserInfo } = useContext(UserContext);
   const navigate = useNavigate();
   const [loginMutation, { loading, error }] = useMutation(LOGIN);
 
-  //function for login
   const login = async (ev) => {
     ev.preventDefault();
 
     try {
       const { data } = await loginMutation({
         variables: {
-          email: username, //email is set as username
-          password: password, //password is set as password
+          email: username,
+          password: password,
         },
       });
 
-      //verifies user credentials
       const token = data.login.token;
       Auth.login(token);
 
@@ -36,7 +34,7 @@ export default function LoginPage() {
       alert('Wrong credentials or login failed');
     }
   };
-//takes input, sets the values, to login user 
+
   return (
     <form className="login" onSubmit={login}>
       <h1>Login</h1>
