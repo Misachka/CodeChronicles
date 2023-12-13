@@ -60,13 +60,13 @@ const EditPost = () => {
 
   return (
     <div>
-      <h2>User Posts</h2>
+      <h2 className='yourpost'>Your Posts</h2>
       {userPosts.map(post => (
-        <div key={post._id}>
+        <div  className='userPosts' key={post._id}>
           <h3>{post.title}</h3>
           <p>{post.content}</p>
           <p>Username: {post.username.username}</p>
-          <button onClick={() => handleEdit(post._id, post.title, post.content)}>
+          <button  onClick={() => handleEdit(post._id, post.title, post.content)}> 
             Edit
           </button>
           <button onClick={() => handleDelete(post._id)}>Delete</button>

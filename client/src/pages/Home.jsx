@@ -24,20 +24,22 @@ function Home(props) {
   return (
     <div
       style={{
-        backgroundImage: `url(${backgroundImage})`, // Set the image as background
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        width: "100vw",
-    
+        // backgroundImage: `url(${backgroundImage})`, 
+        // backgroundSize: "cover",
+        // backgroundPosition: "center",
+        width: "100%",
+        paddingLeft: "20px",
+        paddingRight: "20px",
+
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "column",
-        color: "white", // Text color for visibility on the image
+        color: "white", 
       }}
     >
       <div className="postMain">
-        <h2>All Posts</h2>
+        {/* <h2>All Posts</h2> */}
         {/* PostList component here */}
         <PostList />
       </div>
