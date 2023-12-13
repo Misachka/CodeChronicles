@@ -30,8 +30,9 @@ header{
   margin-top: 20px;
   margin-bottom: 50px;
   align-items: center;
-  /* margin-left: 20px; */
+  padding: 20px;
   width: 100%;
+  background-color: rgba(130, 89, 227, 0.734);
 }
 header a{
   text-decoration:none;
@@ -48,8 +49,8 @@ header nav{
   margin-right: 20px;
 }
 .postMain {
-  padding-bottom: 200px;
-  max-width: 100%;
+  padding-bottom: 50px;
+  max-width: 60%;
   margin: 0 auto;
   overflow: hidden; 
 
