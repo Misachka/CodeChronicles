@@ -21,7 +21,12 @@ export default function CreatePost() {
         },
       });
       alert("Post sucessfully created!");
-      navigate("/")
+      const handleRefresh = () => {
+        navigate("/");
+        window.location.reload(true);
+      }
+      
+     handleRefresh();
 
      
     } catch (err) {
@@ -69,7 +74,7 @@ export default function CreatePost() {
       />
   
       {/* Button for Submission */}
-      <button
+      <button 
         style={{
           padding: '8px 16px',
           fontSize: '1em',
