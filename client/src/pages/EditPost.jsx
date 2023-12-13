@@ -66,10 +66,10 @@ const EditPost = () => {
           <h3>{post.title}</h3>
           <p>{post.content}</p>
           <p>Username: {post.username.username}</p>
-          <button  onClick={() => handleEdit(post._id, post.title, post.content)}> 
+          <button id='edit-btn'  onClick={() => handleEdit(post._id, post.title, post.content)}> 
             Edit
-          </button>
-          <button onClick={() => handleDelete(post._id)}>Delete</button>
+          </button><br></br>
+          <button id='delete-btn' onClick={() => handleDelete(post._id)}>Delete</button>
         </div>
       ))}
     </div>
