@@ -77,7 +77,6 @@ header nav{
 
   header {
     flex-direction: column;
-    /* display: unset; */
   }
 
   header nav {
@@ -88,12 +87,11 @@ header nav{
     padding-bottom: 2%;
   }
 
-  /* You can add more media queries and adjust styles accordingly */
+
 }
 
 .post-list {
   display: grid;
-  /* grid-template-columns: repeat(2, 1fr);  */
   gap: 20px; 
 }
 
