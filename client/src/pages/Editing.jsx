@@ -1,54 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
-import { useNavigate } from 'react-router-dom';
-import { GET_USER_POSTS } from '../utils/queries';
-import { UPDATE_POST, DELETE_POST } from '../utils/mutations';
+import { useParams, useNavigate } from 'react-router-dom';
+import { GET_POST } from '../utils/queries';
+import { UPDATE_POST } from '../utils/mutations';
 
-const EditPost = () => {
-  const { loading, error, data } = useQuery(GET_USER_POSTS); //mutation to get user's posts
-  const [updatePost] = useMutation(UPDATE_POST); //mutation to update post
-  const [deletePost] = useMutation(DELETE_POST); //mutation to delete post
+//function to edit posts
+const Editing = () => {
+  const { postId } = useParams(); //post ID from URL parameters
+  const navigate = useNavigate();
 
-  //empty values to accept user inputs
+  // Fetch post data
+  const { loading, error, data } = useQuery(GET_POST, {
+    variables: { postId },
+  });
+
+  const [updatePost] = useMutation(UPDATE_POST); //use mutation to update post
+
   const [editedPost, setEditedPost] = useState({
-    id: '',
     title: '',
     content: '',
   });
 
-  const navigate = useNavigate(); 
+  useEffect(() => {
+    if (data && data.getPostById) {
+        console.log('Post data:', data.getPostById); // Extract title and content
+      const { title, content } = data.getPostById;
+      setEditedPost({
+        title: title || '', 
+        content: content || '', 
+      });
+    }
+  }, [data]);
 
-  const handleEdit = async (postId, title, content) => {
-    setEditedPost({ id: postId, title, content });
-
-    // Update the post using the mutation
+  //function to update posts
+  const handleUpdatePost = async () => {
     try {
       await updatePost({
         variables: {
           id: postId,
-          title,
-          content,
+          title: editedPost.title,
+          content: editedPost.content,
         },
-        refetchQueries: [{ query: GET_USER_POSTS }], //get's all user's posts again to show update post
       });
-      
-    } catch (error) {
-      console.error(error);
-    }
-
-    // Redirect to the editing post page
-    navigate(`/editing/${postId}`);
-  };
-
-  const handleDelete = async postId => {
-    // Delete the post using the mutation
-    try {
-      await deletePost({
-        variables: { postId },
-        refetchQueries: [{ query: GET_USER_POSTS }],
-      });
-      alert("Post sucessfully deleted");
-      navigate("/edit-post")
+      alert("Post sucessfully updated");
+      navigate(`/edit-post`);
     } catch (error) {
       console.error(error);
     }
@@ -57,24 +52,32 @@ const EditPost = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
-  const userPosts = data.getUserPosts; 
-//loop through user's posts to find the seleted post. On delete, post is deleted, on edit, page redirects to editing page
+  //new values are taken in and then updated
   return (
-    <div>
-      <h2 className='yourpost'>Your Posts</h2>
-      {userPosts.map(post => (
-        <div  className='userPosts' key={post._id}>
-          <h3>{post.title}</h3>
-          <p>{post.content}</p>
-          <p>Username: {post.username.username}</p>
-          <button id='edit-btn'  onClick={() => handleEdit(post._id, post.title, post.content)}> 
-            Edit
-          </button><br></br>
-          <button id='delete-btn' onClick={() => handleDelete(post._id)}>Delete</button>
-        </div>
-      ))}
+    <div className="editing-container">
+      <h2 className="edit-post-title">Edit Post</h2>
+      <form className="edit-form">
+        <label htmlFor="title">Title:</label>
+        <input
+          type="text"
+          id="title"
+          value={editedPost.title}
+          onChange={(e) => setEditedPost({ ...editedPost, title: e.target.value })}
+        />
+
+        <label htmlFor="content">Content:</label>
+        <textarea
+          id="content"
+          value={editedPost.content}
+          onChange={(e) => setEditedPost({ ...editedPost, content: e.target.value })}
+        />
+
+        <button id="update-post-btn" type="button" onClick={handleUpdatePost}>
+          Update Post
+        </button>
+      </form>
     </div>
   );
 };
 
-export default EditPost;
+export default Editing;
