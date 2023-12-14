@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 import { useContext, useEffect } from "react";
 import { UserContext } from "../store/UserContext";
-import backgroundImage from "../assets/backgroundImage.jpg";
 import PostList from "../components/PostsHome";
 
 
 function Home(props) {
-  const { setUserInfo, userInfo } = useContext(UserContext);
+  const { setUserInfo, userInfo } = useContext(UserContext); //login user
 
+  //logs out user
   function logout() {
     setUserInfo(null);
   }
 
+  //shows all posts
   return (
     <div
       style={{
@@ -27,9 +28,7 @@ function Home(props) {
       }}
     >
       <div className="postMain">
-        {/* <h2>All Posts</h2> */}
-        {/* PostList component here */}
-        <PostList />
+        <PostList /> 
       </div>
     </div>
   );

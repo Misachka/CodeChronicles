@@ -1,5 +1,6 @@
 import {jwtDecode} from 'jwt-decode';
 
+//checks credentials 
 class AuthService {
   getProfile() {
     return jwtDecode(this.getToken());

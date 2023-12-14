@@ -1,3 +1,6 @@
+//Needs work 
+
+
 const mongoose = require('mongoose');
 const User = require('../models/User');
 const Post = require('../models/Post');
@@ -38,5 +41,3 @@ seedUsers()
     mongoose.connection.close(); // Close the database connection after seeding
   })
   .catch((error) => console.error('Error seeding data:', error));
-
-

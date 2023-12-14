@@ -1,5 +1,8 @@
 import { gql } from '@apollo/client';
 
+//Uses the queries defined in the server typeDefs file
+
+//retrieves one user info
 export const GET_USER = gql`
   query GetUser {
     getUserById {
@@ -15,6 +18,7 @@ export const GET_USER = gql`
   }
 `;
 
+//retrieved all users
 export const GET_ALL_USERS = gql`
   query GetAllUsers {
     getAllUsers {
@@ -30,6 +34,7 @@ export const GET_ALL_USERS = gql`
   }
 `;
 
+//retrieves one post
 export const GET_POST = gql`
 query GetPost($postId: ID!) {
   getPostById(postId: $postId) {
@@ -44,6 +49,7 @@ query GetPost($postId: ID!) {
 }
 `;
 
+//retrieves all posts
 export const GET_ALL_POSTS = gql`
   query GetAllPosts {
     getAllPosts {
@@ -58,7 +64,7 @@ export const GET_ALL_POSTS = gql`
   }
 `;
 
-
+//gets all posts of an user
 export const GET_USER_POSTS = gql`
   query getUserPosts {
     getUserPosts {
@@ -72,4 +78,3 @@ export const GET_USER_POSTS = gql`
     }
   }
 `;
-
