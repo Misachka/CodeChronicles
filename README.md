@@ -58,13 +58,13 @@ To use application locally:
 
 - Browse the posts from other users and interact with Tech community! 
 
-
+- [ Video Guide](link)
 
 ## Mock-up
 
-![Demo](./client/src/assets/shortvid.gif)
+![Demo](./client/src/assets/home.png)
 
-
+![Demo](./client/src/assets/createpost.png)
 
 
 ## License

@@ -3,18 +3,16 @@ import { useMutation } from "@apollo/client";
 import { CREATE_POST } from "../utils/mutations";
 import { useNavigate } from "react-router-dom";
 
-//empty fields that accept user's input
 export default function CreatePost() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const navigate = useNavigate();
 
-  const [createPostMutation, { loading, error }] = useMutation(CREATE_POST); //mutation to create post
+  const [createPostMutation, { loading, error }] = useMutation(CREATE_POST);
 
   async function createNewPost(ev) {
     ev.preventDefault();
 
-    //sets the title and content for the new post
     try {
       const { data } = await createPostMutation({
         variables: {
@@ -23,8 +21,6 @@ export default function CreatePost() {
         },
       });
       alert("Post sucessfully created!");
-
-      //redirects to home and refrehses to show new post
       const handleRefresh = () => {
         navigate("/");
         window.location.reload(true);
@@ -39,7 +35,7 @@ export default function CreatePost() {
     }
   }
 
-//takes the user's input as values to create the new posts
+
   return (
     <form onSubmit={createNewPost} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       {/* Title Input */}
