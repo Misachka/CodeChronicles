@@ -5,9 +5,9 @@ import { useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 
 export default function RegisterPage() {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState(""); //empty to accept username input
+  const [email, setEmail] = useState(""); //empty to accept email input
+  const [password, setPassword] = useState(""); //empty to accept password input
   const navigate = useNavigate();
 
   const [addUser, { loading, error }] = useMutation(ADD_USER);
@@ -18,15 +18,15 @@ export default function RegisterPage() {
     try {
       const { data } = await addUser({
         variables: {
-          username: username,
-          email: email,
-          password: password,
+          username: username, //username input set
+          email: email, //email input set
+          password: password, //password input set
         },
       });
 
       console.log("Data:", data);
-      const token = data.addUser.token;
-      Auth.login(token);
+      const token = data.addUser.token; //token for created user
+      Auth.login(token); //auth login for new user
       alert("Registration successful");
       navigate("/")
     } catch (err) {
@@ -36,8 +36,9 @@ export default function RegisterPage() {
     }
   }
 
+  //takes input, sets the values, registers user
   return (
-    <form className="register" onSubmit={register}>
+    <form className="register" onSubmit={register}> 
       <h1>Register</h1>
       <input
         type="text"

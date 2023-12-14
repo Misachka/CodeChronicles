@@ -1,3 +1,5 @@
+//User context check the user logged in
+
 import {createContext, useState} from "react";
 
 export const UserContext = createContext({});

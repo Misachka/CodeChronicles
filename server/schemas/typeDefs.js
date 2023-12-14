@@ -1,5 +1,7 @@
 const { gql } = require('apollo-server');
 
+//Structures what client can get and do with data
+// Define GraphQL types for User, Post, and Auth
 const typeDefs = gql`
   type User {
     _id: ID
@@ -20,7 +22,7 @@ const typeDefs = gql`
     user: User
   }
 
-
+  #GraphQL queries for retrieving data
   type Query {
       getUserById(userId: ID!): User
       getAllUsers: [User]
@@ -29,7 +31,7 @@ const typeDefs = gql`
       getUserPosts: [Post]
   }
     
-
+  #GraphQL mutations for creating, updating, and removing data
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth

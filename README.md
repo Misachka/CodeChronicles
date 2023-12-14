@@ -58,13 +58,13 @@ To use application locally:
 
 - Browse the posts from other users and interact with Tech community! 
 
-- [ Video Guide](link)
+
 
 ## Mock-up
 
-![Demo](./client/src/assets/home.png)
+![Demo](./client/src/assets/shortvid.gif)
 
-![Demo](./client/src/assets/createpost.png)
+
 
 
 ## License
@@ -90,4 +90,3 @@ Mariam Murmanishvili
 - GitHub: [Janell](https://github.com/jellobear27)
 - GitHub: [Kitana](https://github.com/K1tanaK0mbat)
 - GitHub: [Mariam](https://github.com/Misachka)
-
